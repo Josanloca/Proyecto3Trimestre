@@ -21,5 +21,10 @@ public interface iLimitesGenerales {
 	public final byte LIMITEESTADOOFERTAMIN=9;
 	public final byte LIMITEESTADOOFERTAMAX=10;
 
+	//Oferta
+	public final byte LIMITEOFERTAZERO=0;
+	public final byte LIMITEOFERTAMAXID=6;
+	public final int LIMITEDESCMAX=500;
+	
 
 }

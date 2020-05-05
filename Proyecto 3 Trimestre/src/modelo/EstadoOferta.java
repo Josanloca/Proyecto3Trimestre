@@ -54,5 +54,10 @@ public class EstadoOferta implements iLimitesGenerales,iEstadoOferta{
     	return bExito;
     }
 	
+    public String toString() {
+    	String sTexto= "";
+    	sTexto += "Estado: "+ sEstadoOferta + "\n";
+    	return sTexto;
+    }
 	
 }

@@ -56,7 +56,7 @@ public class TipoUsuario implements iLimitesGenerales,iTipoUsuario{
 	@Override
 	public String toString (){
 		String sTexto= "";
-		sTexto += "Tipo de usuario: "+ nombreUsuario;
+		sTexto += "Tipo de usuario: "+ nombreUsuario + "\n";
 		return sTexto;
 	}
 }
