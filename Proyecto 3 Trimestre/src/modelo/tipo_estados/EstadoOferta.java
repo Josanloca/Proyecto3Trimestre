@@ -1,4 +1,4 @@
-package modelo;
+package modelo.tipo_estados;
 
 import Limites.iLimitesGenerales;
 
@@ -15,8 +15,8 @@ public class EstadoOferta implements iLimitesGenerales,iEstadoOferta{
 		return sEstadoOferta;
 	}
 
-	@Override
-	public boolean setsEstadoOferta(String sEstadoOferta) {
+	
+	private boolean setsEstadoOferta(String sEstadoOferta) {
 		boolean bExito = false;
 		if(sEstadoOferta != null && sEstadoOferta.length() >= LIMITEESTADOOFERTAMIN && sEstadoOferta.length() <= LIMITEESTADOOFERTAMAX) {
 			this.sEstadoOferta = sEstadoOferta;

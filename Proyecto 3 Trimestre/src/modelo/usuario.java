@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 
 import Limites.iLimitesGenerales;
+import modelo.tipo_estados.TipoUsuario;
 
 
 public class usuario implements iLimitesGenerales,iUsuario{
@@ -150,7 +151,7 @@ public class usuario implements iLimitesGenerales,iUsuario{
 	@Override
 	public boolean setsCorreoElectronico(String sCorreoElectronico) {
 		boolean bExito = false;
-		if(sCorreoElectronico != null && sCorreoElectronico.length() > LIMITCORREOMIN && sCorreoElectronico.length() <= LIMITCORREOMAX) {
+		if(sCorreoElectronico != null && sCorreoElectronico.length() > LIMITCORREOMIN && sCorreoElectronico.length() <= LIMITCORREOMAX && sCorreoElectronico.contains("@")) {
 			this.sCorreoElectronico = sCorreoElectronico;
 			bExito = true;
 		}else {

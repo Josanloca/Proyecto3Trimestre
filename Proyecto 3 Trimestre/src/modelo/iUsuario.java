@@ -2,6 +2,8 @@ package modelo;
 
 import java.time.LocalDate;
 
+import modelo.tipo_estados.TipoUsuario;
+
 public interface iUsuario {
 
 	public String getsDni_nif();

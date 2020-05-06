@@ -1,4 +1,4 @@
-package modelo;
+package modelo.tipo_estados;
 
 import Limites.iLimitesGenerales;
 

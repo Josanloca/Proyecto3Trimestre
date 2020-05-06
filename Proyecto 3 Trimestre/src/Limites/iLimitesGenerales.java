@@ -25,6 +25,8 @@ public interface iLimitesGenerales {
 	public final byte LIMITEOFERTAZERO=0;
 	public final byte LIMITEOFERTAMAXID=6;
 	public final int LIMITEDESCMAX=500;
+	public final int LIMITEPRECMAX=1000;
+
 	
 
 }
