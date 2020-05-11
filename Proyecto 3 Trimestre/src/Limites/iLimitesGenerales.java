@@ -32,7 +32,19 @@ public interface iLimitesGenerales {
 	public final byte LIMITEPETIMAX=9;
 	public final int LIMITDESCMAX = 500;
 	public final byte LIMITEPREMAX=5;
+	
+	//TipoUsuarioValorado
+	public final byte LIMITTYPEVZERO = 0;
+	public final byte LIMITTYPEVMAX = 12;
 
+	//valoracion
+	public final byte LIMITTUVZERO =0;
+	public final byte LIMITTUVPUNTMAX =10;
+	public final byte LIMITTUVMAX =9;
+	public final int LIMITTUVDEXMAX =500;
+
+
+	
 	
 
 }
