@@ -3,7 +3,7 @@ package modelo;
 import Limites.iLimitesGenerales;
 import modelo.tipo_estados.EstadoOferta;
 
-public class oferta implements iLimitesGenerales{
+public class oferta implements iLimitesGenerales,iOferta{
 
 	private int id_Oferta; //PK
 	private String DescOferta;
@@ -15,6 +15,7 @@ public class oferta implements iLimitesGenerales{
 		
 	}
 
+	@Override
 	public int getId_Oferta() {
 		return id_Oferta;
 	}
@@ -28,10 +29,12 @@ public class oferta implements iLimitesGenerales{
 		return bExito;
 	}
 
+	@Override
 	public String getDescOferta() {
 		return DescOferta;
 	}
 
+	@Override
 	public boolean setDescOferta(String descOferta) {
 		boolean bExito = false;
 		if(descOferta.length() >= LIMITEOFERTAZERO && descOferta.length() <= LIMITEDESCMAX) {
@@ -41,10 +44,12 @@ public class oferta implements iLimitesGenerales{
 		return bExito;
 	}
 
+	@Override
 	public int getPrecioOferta() {
 		return PrecioOferta;
 	}
 
+	@Override
 	public boolean setPrecioOferta(int PrecioOferta) {
 		boolean bExito = false;
 		if(PrecioOferta >= LIMITEOFERTAZERO && PrecioOferta <=LIMITEPRECMAX) {
@@ -54,10 +59,12 @@ public class oferta implements iLimitesGenerales{
 		return bExito;
 	}
 
+	@Override
 	public usuario getoUsuarioOferta() {
 		return oUsuarioOferta;
 	}
 
+	@Override
 	public boolean setoUsuarioOferta(usuario oUsuarioOferta) {
 		boolean bExito = false;
 		if(oUsuarioOferta.checkUsuario()) {
@@ -69,10 +76,12 @@ public class oferta implements iLimitesGenerales{
 		return bExito;
 	}
 
+	@Override
 	public EstadoOferta getoEstadoOferta() {
 		return oEstadoOferta;
 	}
 
+	@Override
 	public boolean setoEstadoOferta(EstadoOferta oEstadoOferta) {
 		boolean bExito = false;
 		if(oEstadoOferta.checkEstadoOferta()) {
@@ -82,6 +91,7 @@ public class oferta implements iLimitesGenerales{
 		return bExito;
 	}
 	
+	@Override
 	public boolean checkOferta() {
 		boolean bExito = false;
 		if(this.id_Oferta >= LIMITEOFERTAZERO && String.valueOf(this.id_Oferta).length() <= LIMITEOFERTAMAXID && PrecioOferta >= LIMITEOFERTAZERO && PrecioOferta <=LIMITEPRECMAX && oUsuarioOferta.checkUsuario() && oEstadoOferta.checkEstadoOferta()) {
@@ -89,6 +99,7 @@ public class oferta implements iLimitesGenerales{
 		}
 		return bExito;
 	}
+	
 	
     @Override
     public int hashCode () {
@@ -98,6 +109,7 @@ public class oferta implements iLimitesGenerales{
     	return result;
     }
 
+	
     @Override
     public boolean equals (Object obj) {
     	boolean bExito = false;
@@ -108,6 +120,7 @@ public class oferta implements iLimitesGenerales{
     	return bExito;
     }
     
+	@Override
     public String toString() {
     	String sResultado = "";
     	sResultado += "Id de la oferta: "+this.id_Oferta+"\n";
