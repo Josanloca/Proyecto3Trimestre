@@ -6,7 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="Libreria/mysql-connector-java-8.0.20.jar"/>
 	<classpathentry kind="lib" path="Libreria/mariadb-java-client-1.8.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -28,7 +28,9 @@ public class ConexionBaseDatos {
 	// Establecemos la conexion
 	try {
 	    connectionDb = DriverManager.getConnection(url, user, password);
+	    System.out.println("SI");
 	} catch (Exception sqle) {
+		System.out.println("no");
 	    connectionDb = null;
 	}
     }

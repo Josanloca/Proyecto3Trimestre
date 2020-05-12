@@ -17,7 +17,7 @@ public class TipoUsuario implements iLimitesGenerales,iTipoUsuario{
 	
 	private boolean setNombreUsuario(String nombreUsuario) {
 		boolean bExito = false;
-		if(nombreUsuario != null && nombreUsuario.length() == LIMITENOMBRETU) {
+		if(nombreUsuario != null  ) {
 			this.nombreUsuario = nombreUsuario;
 			bExito = true;
 		}else {
