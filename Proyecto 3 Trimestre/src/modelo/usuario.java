@@ -23,10 +23,9 @@ public class usuario implements iLimitesGenerales,iUsuario{
 	private TipoUsuario oTipoUsuario; // NN
 	
 	//GENERAL COMPLETO
-	public usuario(String sDni_nif,String sNombre,String sApellido,String sContraseña,LocalDate fecha,String sCorreoElectronico,int iTelefono,String sDireccion,String sDescripccion,TipoUsuario oTipoUsuario) {
+	public usuario(String sDni_nif,String sNombre,String sContraseña,LocalDate fecha,String sCorreoElectronico,int iTelefono,String sDireccion,String sDescripccion,TipoUsuario oTipoUsuario) {
 		this.setsDni_nif(sDni_nif);
 		this.setsNombre(sNombre);
-		this.setsApellido(sApellido);
 		this.setsContraseña(sContraseña);
 		this.setFecha(fecha);
 		this.setsCorreoElectronico(sCorreoElectronico);
@@ -36,12 +35,23 @@ public class usuario implements iLimitesGenerales,iUsuario{
 		this.setoTipoUsuario(oTipoUsuario);
 	}
 	
-	//GENERAL 1 MODO
-	public usuario(String sDni_nif,String sNombre,String sContraseña,LocalDate fecha,String sCorreoElectronico,TipoUsuario oTipoUsuario) {
+	//GENERAL SIN FECHA
+	public usuario(String sDni_nif,String sNombre,String sContraseña,String sCorreoElectronico,int iTelefono,String sDireccion,String sDescripccion,TipoUsuario oTipoUsuario) {
 		this.setsDni_nif(sDni_nif);
 		this.setsNombre(sNombre);
 		this.setsContraseña(sContraseña);
-		this.setFecha(fecha);
+		this.setsCorreoElectronico(sCorreoElectronico);
+		this.setiTelefono(iTelefono);
+		this.setsDireccion(sDireccion);
+		this.setsDescripccion(sDescripccion);
+		this.setoTipoUsuario(oTipoUsuario);
+	}
+	
+	//GENERAL 1 MODO
+	public usuario(String sDni_nif,String sNombre,String sContraseña,String sCorreoElectronico,TipoUsuario oTipoUsuario) {
+		this.setsDni_nif(sDni_nif);
+		this.setsNombre(sNombre);
+		this.setsContraseña(sContraseña);
 		this.setsCorreoElectronico(sCorreoElectronico);
 		this.setoTipoUsuario(oTipoUsuario);
 	}

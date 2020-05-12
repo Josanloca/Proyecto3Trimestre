@@ -7,7 +7,7 @@ public class TipoUsuario implements iLimitesGenerales,iTipoUsuario{
 	private String nombreUsuario;
 	
 	public TipoUsuario(String nombreUsuario) {
-		this.setNombreUsuario(nombreUsuario);
+		setNombreUsuario(nombreUsuario);
 	}
 
 	@Override
