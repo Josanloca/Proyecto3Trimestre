@@ -6,7 +6,7 @@ public class EstadoOferta implements iLimitesGenerales,iEstadoOferta{
 
 	private String sEstadoOferta; // PK
 	
-	public EstadoOferta() {
+	public EstadoOferta(String sEstadoOferta) {
 		this.setsEstadoOferta(sEstadoOferta);
 	}
 

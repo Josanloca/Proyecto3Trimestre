@@ -11,8 +11,16 @@ public class oferta implements iLimitesGenerales,iOferta{
 	private usuario oUsuarioOferta; //FK
 	private EstadoOferta oEstadoOferta; //FK
 	
-	public oferta() {
-		
+	public oferta(int id_Oferta) {
+		this.setId_Oferta(id_Oferta);
+	}
+	
+	public oferta(int id_Oferta,String DescOferta,int PrecioOferta,usuario oUsuarioOferta,EstadoOferta oEstadoOferta) {
+		this.setId_Oferta(id_Oferta);
+		this.setDescOferta(DescOferta);
+		this.setPrecioOferta(PrecioOferta);
+		this.setoUsuarioOferta(oUsuarioOferta);
+		this.setoEstadoOferta(oEstadoOferta);
 	}
 
 	@Override
@@ -129,7 +137,7 @@ public class oferta implements iLimitesGenerales,iOferta{
     	}
     	sResultado += "Dinero ofrecido: "+this.PrecioOferta+"\n";
     	sResultado += "Id del usuario ofertante: "+this.oUsuarioOferta+"\n";
-    	sResultado += "Estado de la oferta: "+this.oEstadoOferta+"\n";
+    	sResultado += "Estado de la oferta: "+this.oEstadoOferta.getsEstadoOferta()+"\n";
     	return sResultado;
     	
     }
