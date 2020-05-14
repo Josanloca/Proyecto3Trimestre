@@ -31,14 +31,14 @@ public class usuarioController implements iUsuarioController{
     }
     
 	@Override
-	public List<String> ListaDeLosUsuario() {
+	public List<String> ListaDeLosUsuarioNombre() {
 		List<String> LTU = new ArrayList<String>();
 		String sql = "SELECT nombre FROM usuario";
 		Statement stm = null;
 		try {
 		    stm = ConexionBaseDatos.getConnection().createStatement();
 		    ResultSet rs = stm.executeQuery(sql);
-		    while (rs.next()) {
+		    while (rs.next()) {		    	
 		    LTU.add(rs.getString(1));
 		    }
 		    stm.close();

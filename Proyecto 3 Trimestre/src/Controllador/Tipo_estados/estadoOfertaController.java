@@ -1,4 +1,4 @@
-package Controllador.general;
+package Controllador.Tipo_estados;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +14,6 @@ public class estadoOfertaController implements iEstadoOfertaController{
 	@Override
 	public int add(EstadoOferta oEO) {
 		String sql = "INSERT INTO estado_oferta VALUES (\""+oEO.getsEstadoOferta()+"\")";		
-		System.out.println(sql);
 		return ConexionBaseDatos.executeUpdate(sql);
 	}
 	
@@ -25,14 +24,14 @@ public class estadoOfertaController implements iEstadoOfertaController{
     }
 	
 	@Override
-    public int existeUsuario (EstadoOferta oEO) {
+    public int existe (EstadoOferta oEO) {
     	String sql = "SELECT COUNT(*) FROM estado_oferta WHERE nombre_tipo_oferta LIKE \"" + oEO.getsEstadoOferta() + "\"";
     	//System.out.println(sql);
     	return ConexionBaseDatos.executeCount(sql);
     }
     
 	@Override
-	public List<String> ListaDeLosUsuario() {
+	public List<String> Lista() {
 		List<String> LTU = new ArrayList<String>();
 		String sql = "SELECT * FROM estado_oferta";
 		Statement stm = null;

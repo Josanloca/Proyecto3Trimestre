@@ -11,6 +11,16 @@ public class valoraciones implements iLimitesGenerales,iValoraciones{
 	private Peticion oPeticion;
 	private TipoUsuarioValorado tuv;
 	
+	public valoraciones (int iIdValoracion) {
+		this.setiIdValoracion(iIdValoracion);
+	}
+	
+	public valoraciones (int iIdValoracion,byte bPuntuacion,String sDesValor,Peticion oPeticion,TipoUsuarioValorado tuv) {
+		this.setiIdValoracion(iIdValoracion);
+		this.setbPuntuacion(bPuntuacion);
+		this.setsDesValor(sDesValor);
+		this.setTuv(tuv);
+	}
 	
 	@Override
 	public int getiIdValoracion() {

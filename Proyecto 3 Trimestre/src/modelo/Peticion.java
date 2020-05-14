@@ -110,7 +110,7 @@ public class Peticion implements iLimitesGenerales,iPeticion{
 	@Override
 	public boolean setoIdOferta(oferta oIdOferta) {
 		boolean bExito = false;
-		if(oIdOferta.checkOferta()) {
+		if(oIdOferta.getId_Oferta() >0 || oIdOferta.checkOferta() ) {
 			this.oIdOferta = oIdOferta;
 			bExito = true;
 		}
@@ -143,4 +143,17 @@ public class Peticion implements iLimitesGenerales,iPeticion{
     	}
     	return bExito;
     }
+    
+   public String toString () {
+   	String sResultado = "";
+   	sResultado += "Id del pedido: "+this.getoIdOferta()+"\n";
+   	sResultado += "Descripccion: "+this.getsDescripcion()+"\n";
+   	sResultado += "Precio Medio: "+this.getiPrecio()+"\n";
+   	sResultado += "Nombre del usuario: "+this.getoUsuarioPeticion()+"\n";
+   	sResultado += "Estado de la peticion: "+this.getoEstadoPeticion().getsEstadoPeticion()+"\n";
+   	sResultado += "Id de la oferta es: "+this.getoIdOferta().getId_Oferta()+"\n";
+   			
+	return sResultado;
+
+   }
 }

@@ -1,6 +1,9 @@
 package Controllador.general;
 
 import Controllador.ConexionBaseDatos;
+import Controllador.Tipo_estados.TipoUsuarioController;
+import Controllador.Tipo_estados.estadoOfertaController;
+import Controllador.Tipo_estados.estadoPeticionController;
 
 public class PaqueteController {
 
@@ -8,13 +11,16 @@ public class PaqueteController {
 	private usuarioController usuario;
 	private estadoOfertaController  oEOferta;
 	private ofertaController oOferta;
+	private estadoPeticionController oEP;
+	private peticionController oPeticion;
 	
-	public PaqueteController(String sDatabase) {
-		
+	public PaqueteController(String sDatabase) {		
 		tipoUsuario = new TipoUsuarioController();
 		usuario = new usuarioController();
 		oEOferta = new estadoOfertaController();
 		oOferta = new ofertaController();
+		oEP = new estadoPeticionController();
+		oPeticion = new peticionController();
 		new ConexionBaseDatos(sDatabase);	
 	}
 	
@@ -32,6 +38,14 @@ public class PaqueteController {
 	
 	public ofertaController getofertaController() {
 		return oOferta;
+	}
+	
+	public estadoPeticionController getestadoPeticionController() {
+		return oEP;
+	}
+	
+	public peticionController getpeticionController() {
+		return oPeticion;
 	}
 	
 }

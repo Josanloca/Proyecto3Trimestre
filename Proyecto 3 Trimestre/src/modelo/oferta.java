@@ -75,7 +75,7 @@ public class oferta implements iLimitesGenerales,iOferta{
 	@Override
 	public boolean setoUsuarioOferta(usuario oUsuarioOferta) {
 		boolean bExito = false;
-		if(oUsuarioOferta.checkUsuario()) {
+		if(oUsuarioOferta.checkUsuario() || oUsuarioOferta.getsDni_nif() != null) {
 			this.oUsuarioOferta = oUsuarioOferta;
 			bExito = true;
 		}else {
@@ -102,7 +102,7 @@ public class oferta implements iLimitesGenerales,iOferta{
 	@Override
 	public boolean checkOferta() {
 		boolean bExito = false;
-		if(this.id_Oferta >= LIMITEOFERTAZERO && String.valueOf(this.id_Oferta).length() <= LIMITEOFERTAMAXID && PrecioOferta >= LIMITEOFERTAZERO && PrecioOferta <=LIMITEPRECMAX && oUsuarioOferta.checkUsuario() && oEstadoOferta.checkEstadoOferta()) {
+		if(this.id_Oferta >= LIMITEOFERTAZERO && String.valueOf(this.id_Oferta).length() <= LIMITEOFERTAMAXID && PrecioOferta >= LIMITEOFERTAZERO && PrecioOferta <=LIMITEPRECMAX && oUsuarioOferta.checkUsuario() && oEstadoOferta.checkEstadoOferta() || id_Oferta > 0) {
 			bExito = true;
 		}
 		return bExito;
@@ -137,7 +137,8 @@ public class oferta implements iLimitesGenerales,iOferta{
     	}
     	sResultado += "Dinero ofrecido: "+this.PrecioOferta+"\n";
     	sResultado += "Id del usuario ofertante: "+this.oUsuarioOferta+"\n";
-    	sResultado += "Estado de la oferta: "+this.oEstadoOferta.getsEstadoOferta()+"\n";
+    	sResultado += "Estado de la oferta: "+this.oEstadoOferta+"\n";
+
     	return sResultado;
     	
     }

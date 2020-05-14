@@ -18,7 +18,7 @@ public interface iLimitesGenerales {
 	public final int LIMITDESCRIPCCIONMAX=200;
 	
 	//EstadoUsuario
-	public final byte LIMITEESTADOOFERTAMIN=9;
+	public final byte LIMITEESTADOOFERTAMIN=0;
 	public final byte LIMITEESTADOOFERTAMAX=10;
 
 	//Oferta
@@ -31,7 +31,7 @@ public interface iLimitesGenerales {
 	public final byte LIMITEPETIZERO=0;
 	public final byte LIMITEPETIMAX=9;
 	public final int LIMITDESCMAX = 500;
-	public final byte LIMITEPREMAX=5;
+	public final int LIMITEPREMAX=9999;
 	
 	//TipoUsuarioValorado
 	public final byte LIMITTYPEVZERO = 0;

@@ -9,5 +9,5 @@ public interface iUsuarioController {
 	public int add (usuario oUsuario);
 	public int remove (usuario oUsuario);
     public int existeUsuario (usuario oUsuario);
-	public List<String> ListaDeLosUsuario();
+	public List<String> ListaDeLosUsuarioNombre();
 }
