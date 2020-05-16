@@ -14,6 +14,11 @@ public class Peticion implements iLimitesGenerales,iPeticion{
 	private EstadoPeticion oEstadoPeticion;
 	private oferta oIdOferta;
 	
+	public Peticion(int iIdPeticion) {
+		this.setiIdPeticion(iIdPeticion);
+
+	}
+	
 	public Peticion(int iIdPeticion,String sDescripcion,int iPrecio,usuario oUsuarioPeticion,EstadoPeticion oEstadoPeticion,oferta oIdOferta) {
 		this.setiIdPeticion(iIdPeticion);
 		this.setsDescripcion(sDescripcion);

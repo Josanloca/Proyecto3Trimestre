@@ -1,4 +1,4 @@
-package Controllador.general;
+package Controllador.Tipo_estados;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

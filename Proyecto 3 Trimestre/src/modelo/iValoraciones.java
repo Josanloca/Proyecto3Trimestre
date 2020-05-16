@@ -13,5 +13,9 @@ public interface iValoraciones {
 	public boolean setoPeticion(Peticion oPeticion);
 	public TipoUsuarioValorado getTuv();
 	public boolean setTuv(TipoUsuarioValorado tuv);
+	public boolean checkValoracion();
+    public int hashCode () ;
+    public boolean equals (Object obj);
+    public String toString ();
 	
 }

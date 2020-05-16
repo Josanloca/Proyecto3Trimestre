@@ -7,13 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Controllador.ConexionBaseDatos;
+import Controllador.Tipo_estados.iPeticionController;
 import modelo.Peticion;
 import modelo.oferta;
 import modelo.usuario;
 import modelo.tipo_estados.EstadoPeticion;
 
-public class peticionController {
+public class peticionController implements iPeticionController{
 
+	@Override
 	public int add(Peticion oPeticion) {
 		String sql = "INSERT INTO peticion VALUES ("+oPeticion.getiIdPeticion();
 		sql += ",\""+oPeticion.getsDescripcion();
@@ -24,11 +26,13 @@ public class peticionController {
 		return ConexionBaseDatos.executeCount(sql);
 	}
 	
+	@Override
 	public int remove(Peticion oPeticion) {
 		String sql = "DELETE FROM peticion WHERE id_peticion LIKE \""+oPeticion.getiIdPeticion()+"\"";
 		return ConexionBaseDatos.executeCount(sql);
 	}
 	
+	@Override
     public List<Peticion> ListaPeticionToda (usuario oUser) {
 		
 	List<Peticion> lPeticion = new ArrayList<Peticion>();	

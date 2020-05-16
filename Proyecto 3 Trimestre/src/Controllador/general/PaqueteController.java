@@ -2,6 +2,7 @@ package Controllador.general;
 
 import Controllador.ConexionBaseDatos;
 import Controllador.Tipo_estados.TipoUsuarioController;
+import Controllador.Tipo_estados.TipoUsuarioValoradoController;
 import Controllador.Tipo_estados.estadoOfertaController;
 import Controllador.Tipo_estados.estadoPeticionController;
 
@@ -14,6 +15,7 @@ public class PaqueteController {
 	private estadoPeticionController oEP;
 	private peticionController oPeticion;
 	private TipoUsuarioValoradoController oTUV;
+	private valoracionController oValoracion;
 	
 	public PaqueteController(String sDatabase) {		
 		tipoUsuario = new TipoUsuarioController();
@@ -23,6 +25,7 @@ public class PaqueteController {
 		oEP = new estadoPeticionController();
 		oPeticion = new peticionController();
 		oTUV = new TipoUsuarioValoradoController();
+		oValoracion = new valoracionController();
 		new ConexionBaseDatos(sDatabase);	
 	}
 	
@@ -52,6 +55,10 @@ public class PaqueteController {
 	
 	public TipoUsuarioValoradoController getTipoUsuarioValoradoController() {
 		return oTUV;
+	}
+	
+	public valoracionController getvaloracionController() {
+		return oValoracion;
 	}
 	
 }
