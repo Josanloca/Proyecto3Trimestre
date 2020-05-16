@@ -29,18 +29,21 @@ public class peticionController {
 		return ConexionBaseDatos.executeCount(sql);
 	}
 	
-    public List<Peticion> ListaPeticionToda () {
+    public List<Peticion> ListaPeticionToda (usuario oUser) {
 		
 	List<Peticion> lPeticion = new ArrayList<Peticion>();	
-	String sql = "SELECT * FROM peticion ";
-
+	String sql = "SELECT * FROM peticion";
+	System.out.println(sql);
 	Statement stm = null;
 	
 	try {
 	    stm = ConexionBaseDatos.getConnection().createStatement();
+	    
 	    ResultSet rs = stm.executeQuery(sql);
+	    
 	    while (rs.next()) {
-	    byte bId_Peticion = (byte)rs.getInt(1);
+	    	
+	    byte bId_Peticion = (byte) rs.getInt(1);
 		String sDescPeticion = rs.getString(2);
 		byte bPrecio = (byte)rs.getInt(3);
 		String sUsuario = rs.getString(4);
@@ -51,6 +54,7 @@ public class peticionController {
 		System.out.println(sEP);
 		
 		usuario oUsuario = new usuario(sUsuario);	
+		System.out.println("vale: "+oUsuario.getsDni_nif());
 		EstadoPeticion oEP = new EstadoPeticion(sEP);
 		oferta oOferta = new oferta(bidOferta);
 		

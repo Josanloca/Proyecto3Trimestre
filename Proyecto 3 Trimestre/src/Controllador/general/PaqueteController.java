@@ -13,6 +13,7 @@ public class PaqueteController {
 	private ofertaController oOferta;
 	private estadoPeticionController oEP;
 	private peticionController oPeticion;
+	private TipoUsuarioValoradoController oTUV;
 	
 	public PaqueteController(String sDatabase) {		
 		tipoUsuario = new TipoUsuarioController();
@@ -21,6 +22,7 @@ public class PaqueteController {
 		oOferta = new ofertaController();
 		oEP = new estadoPeticionController();
 		oPeticion = new peticionController();
+		oTUV = new TipoUsuarioValoradoController();
 		new ConexionBaseDatos(sDatabase);	
 	}
 	
@@ -46,6 +48,10 @@ public class PaqueteController {
 	
 	public peticionController getpeticionController() {
 		return oPeticion;
+	}
+	
+	public TipoUsuarioValoradoController getTipoUsuarioValoradoController() {
+		return oTUV;
 	}
 	
 }

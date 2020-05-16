@@ -16,4 +16,5 @@ public interface iPeticion {
 	public oferta getoIdOferta();
 	public boolean setoIdOferta(oferta oIdOferta);
 	public boolean checkPeticion();
+	public String toString ();
 }

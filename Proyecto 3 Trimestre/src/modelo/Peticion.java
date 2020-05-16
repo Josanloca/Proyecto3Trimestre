@@ -2,6 +2,8 @@ package modelo;
 
 import Limites.iLimitesGenerales;
 import modelo.tipo_estados.EstadoPeticion;
+import modelo.usuario;
+import modelo.oferta;
 
 public class Peticion implements iLimitesGenerales,iPeticion{
 
@@ -80,10 +82,11 @@ public class Peticion implements iLimitesGenerales,iPeticion{
 	@Override
 	public boolean setoUsuarioPeticion(usuario oUsuarioPeticion) {
 		boolean bExito = false;
-		if(oUsuarioPeticion.checkUsuario()) {
+		System.out.println(oUsuarioPeticion.getsDni_nif()+" tampoco?");
+		
 			this.oUsuarioPeticion = oUsuarioPeticion;
 			bExito = true;
-		}
+		
 		return bExito;
 	}
 	
@@ -144,12 +147,14 @@ public class Peticion implements iLimitesGenerales,iPeticion{
     	return bExito;
     }
     
+   @Override
    public String toString () {
    	String sResultado = "";
+   	sResultado += "-----------------------------"+"\n";
    	sResultado += "Id del pedido: "+this.getoIdOferta()+"\n";
    	sResultado += "Descripccion: "+this.getsDescripcion()+"\n";
    	sResultado += "Precio Medio: "+this.getiPrecio()+"\n";
-   	sResultado += "Nombre del usuario: "+this.getoUsuarioPeticion()+"\n";
+   	sResultado += "Nombre del usuario: "+this.getoUsuarioPeticion().getsDni_nif()+"\n";
    	sResultado += "Estado de la peticion: "+this.getoEstadoPeticion().getsEstadoPeticion()+"\n";
    	sResultado += "Id de la oferta es: "+this.getoIdOferta().getId_Oferta()+"\n";
    			
