@@ -33,11 +33,13 @@ public class Principal {
 					oUsuario = LoginViews.entrada(Controllador);
 				}
 			}else {
+				oUsuario = LoginViews.Registrar(Controllador);
 				
+				while (oUsuario == null) {
+					System.out.println("Acesso no autorizado, intentelo de nuevo.");
+					oUsuario = LoginViews.Registrar(Controllador);
+				}
 			}
-			
-			
-
 			
 			System.out.println("Bienvenido, ¿que quiere realizar hoy?");
 			

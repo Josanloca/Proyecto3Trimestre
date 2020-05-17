@@ -12,8 +12,18 @@ public class usuarioController implements iUsuarioController{
 
 	@Override
 	public int add (usuario oUsuario) {
-		String sql = "INSERT INTO usuario VALUES (\""+oUsuario.getsDni_nif()+"\",\""+oUsuario.getsNombre()+"\",\""+oUsuario.getsContraseña()+"\",\""+oUsuario.getFecha().getYear()+"*"+oUsuario.getFecha().getMonthValue()+"*"+oUsuario.getFecha().getDayOfMonth()+"\",\""+oUsuario.getsCorreoElectronico()+"\","+oUsuario.getiTelefono()+",\""+oUsuario.getsDireccion()+"\",\""+oUsuario.getsDescripccion()+"\",\""+oUsuario.getoTipoUsuario().getNombreUsuario()+"\")";
-		//System.out.println(sql);
+		//String sql = "INSERT INTO usuario VALUES (\""+oUsuario.getsDni_nif()+"\",\""+oUsuario.getsNombre()+"\",\""+oUsuario.getsContraseña()+"\",\""+oUsuario.getFecha().getYear()+"*"+oUsuario.getFecha().getMonthValue()+"*"+oUsuario.getFecha().getDayOfMonth()+"\",\""+oUsuario.getsCorreoElectronico()+"\","+oUsuario.getiTelefono()+",\""+oUsuario.getsDireccion()+"\",\""+oUsuario.getsDescripccion()+"\",\""+oUsuario.getoTipoUsuario().getNombreUsuario()+"\")";
+		String sql = "INSERT INTO usuario VALUES (\""+oUsuario.getsDni_nif()+"\",\"";
+		sql += oUsuario.getsNombre()+"\",\"";
+		sql += oUsuario.getsContraseña()+"\",\"";
+		sql += oUsuario.getFecha().getYear()+"*"+oUsuario.getFecha().getMonthValue()+"*"+oUsuario.getFecha().getDayOfMonth()+"\",\"";
+		sql += oUsuario.getsCorreoElectronico()+"\",";
+		sql += oUsuario.getiTelefono()+",\"";	
+		sql += oUsuario.getsDireccion()+"\",\"";
+		sql += oUsuario.getsDescripccion()+"\",\"";
+		sql += oUsuario.getoTipoUsuario().getNombreUsuario()+"\")";
+
+		System.out.println(sql);
 		return ConexionBaseDatos.executeUpdate(sql);
 	}
 	

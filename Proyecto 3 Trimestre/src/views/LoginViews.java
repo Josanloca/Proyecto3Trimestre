@@ -6,6 +6,7 @@ import Controllador.general.PaqueteController;
 import Limites.iLimitesGenerales;
 import Valida.ValidaLibrary;
 import modelo.usuario;
+import modelo.tipo_estados.TipoUsuario;
 
 public class LoginViews {
 	
@@ -69,9 +70,9 @@ public class LoginViews {
 	public static usuario Registrar(PaqueteController Controllador) {
 		usuario oUsuario = null;
 		boolean bEC = true;
-		int iTelefono,fecha_Año,fecha_Mes,fecha_Dia;
-		LocalDate fecha;
-		String sDni_nif,sNombre,sContraseña,sCorreoElectronico,sDireccion,sDescripccion;
+		int iTelefono= 0,fecha_Año= 0,fecha_Mes= 0,fecha_Dia=0;
+		byte bDato= 0;
+		String sDni_nif= null,sNombre= null,sContraseña= null,sCorreoElectronico= null,sDireccion= null,sDescripccion= null,sTipoUsuario= null;
 		
 		System.out.println("Para registrarse rellene los campos a continuacion: ");
 		
@@ -84,7 +85,7 @@ public class LoginViews {
 			System.out.println("Intentelo de nuevo \n");
 		    }	    
 		}
-		
+
 		bEC = true;
 		
 		while(bEC) {
@@ -96,7 +97,7 @@ public class LoginViews {
 			System.out.println("Intentelo de nuevo \n");
 		    }
 		}
-		
+
 		bEC = true;
 		
 		while(bEC) {
@@ -108,22 +109,127 @@ public class LoginViews {
 			System.out.println("Intentelo de nuevo \n");
 		    }
 		}
+
+		bEC = true;
+		
+		while(bEC) {
+		    try {
+		    fecha_Año =(int) ValidaLibrary.valida("Introuzca en que año naciste (MIN 1900 - MAX 2019): ", 1900, 2019, 1);
+		    bEC = false;
+		    } catch(Exception ex) {
+			System.out.println("Error en la introduccion del año: " + ex.getMessage()+"\n");
+			System.out.println("Intentelo de nuevo \n");
+		    }
+		}
+
+		bEC = true;
+		
+		while(bEC) {
+		    try {
+		    fecha_Mes =(int) ValidaLibrary.valida("Introuzca en que mes naciste (MIN 1 - MAX 12): ", 1, 12, 1);
+		    bEC = false;
+		    } catch(Exception ex) {
+			System.out.println("Error en la introduccion del mes: " + ex.getMessage()+"\n");
+			System.out.println("Intentelo de nuevo \n");
+		    }
+		}
+
+		bEC = true;
+		
+		while(bEC) {
+		    try {
+		    fecha_Dia =(int) ValidaLibrary.valida("Introuzca en que dia naciste(MIN 1 - MAX 30): ", 1, 30, 1);
+		    bEC = false;
+		    } catch(Exception ex) {
+			System.out.println("Error en la introduccion del mes: " + ex.getMessage()+"\n");
+			System.out.println("Intentelo de nuevo \n");
+		    }
+		}
+
+		bEC = true;
+		
+		while(bEC) {
+		    try {
+		    sCorreoElectronico = ValidaLibrary.leer("Introduzca su correo electronico (debe contener un @): ");
+		    bEC = false;
+		    } catch(Exception ex) {
+			System.out.println("Error en la introduccion del correo electronico: " + ex.getMessage()+"\n");
+			System.out.println("Intentelo de nuevo \n");
+		    }
+		}
+
 		
 		bEC = true;
 		
 		while(bEC) {
 		    try {
-		    fecha_Año =(int) ValidaLibrary.valida("Introuzca en que año naciste (MIN 1900 - MAX 2019)", 1900, 2019, 1);
-		    fecha_Año =(int) ValidaLibrary.valida("Introuzca en que año naciste (MIN 1900 - MAX 2019)", 1900, 2019, 1);
-
+		    iTelefono = (int) ValidaLibrary.valida("Introduzca su numero de telefono: ", 100000000, 999999999, 1);
 		    bEC = false;
 		    } catch(Exception ex) {
-			System.out.println("Error en la introduccion del nombre: " + ex.getMessage()+"\n");
+			System.out.println("Error en la introduccion del telefono: " + ex.getMessage()+"\n");
 			System.out.println("Intentelo de nuevo \n");
 		    }
+		}
+
+		bEC = true;
+		
+		while(bEC) {
+		    try {
+		    	sDireccion = ValidaLibrary.leer("Introduzca su direccion : ");
+		    bEC = false;
+		    } catch(Exception ex) {
+			System.out.println("Error en la introduccion de la direccion: " + ex.getMessage()+"\n");
+			System.out.println("Intentelo de nuevo \n");
+		    }
+		}
+
+		bEC = true;
+		
+		while(bEC) {
+		    try {
+		    	sDescripccion = ValidaLibrary.leer("Introduzca una pequeña descripccion de si mismo: ");
+		    bEC = false;
+		    } catch(Exception ex) {
+			System.out.println("Error en la introduccion de la descripccion: " + ex.getMessage()+"\n");
+			System.out.println("Intentelo de nuevo \n");
+		    }
+		}
+
+		
+		bEC = true;
+		
+		while(bEC) {
+		    try {
+		    bDato = (byte) ValidaLibrary.valida("¿Que tipo de ususario sera? 1= EMPRESARIO o 2= PARTICULAR : ",1,2,3);
+		    
+		    if(bDato ==1) {
+		    	sTipoUsuario ="EMPRESARIO";
+		    }else if(bDato ==2) {
+		    	sTipoUsuario ="PARTICULAR";
+		    }else {
+		    	System.out.println("ERROR VALIDA TIPO USUARIO");
+		    }
+		    bEC = false;
+		    } catch(Exception ex) {
+			System.out.println("Error en la introduccion del tipo de usuario: " + ex.getMessage()+"\n");
+			System.out.println("Intentelo de nuevo \n");
+		    }
+		}
+
+		
+		LocalDate localDate = LocalDate.of(fecha_Año, fecha_Mes, fecha_Dia);
+		
+		TipoUsuario oTU = new TipoUsuario(sTipoUsuario);
+		
+		usuario oResultado = new usuario(sDni_nif,sNombre,sContraseña,localDate,sCorreoElectronico,iTelefono,sDireccion,sDescripccion,oTU);
+		
+		if(Controllador.getUsuarioController().add(oResultado) >0) {
+			oUsuario = oResultado;
 		}
 		
 		return oUsuario;
 	}
+	
+	
 		
 }
