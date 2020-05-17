@@ -155,7 +155,7 @@ public class Peticion implements iLimitesGenerales,iPeticion{
    @Override
    public String toString () {
    	String sResultado = "";
-   	sResultado += "-----------------------------"+"\n";
+   	
    	sResultado += "Id del pedido: "+this.getoIdOferta()+"\n";
    	sResultado += "Descripccion: "+this.getsDescripcion()+"\n";
    	sResultado += "Precio Medio: "+this.getiPrecio()+"\n";

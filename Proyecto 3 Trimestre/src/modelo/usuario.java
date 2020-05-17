@@ -50,6 +50,12 @@ public class usuario implements iLimitesGenerales,iUsuario{
 		this.setoTipoUsuario(oTipoUsuario);
 	}
 	
+	//GENERAL LOGIN
+	public usuario(String sContraseña,String sCorreoElectronico) {
+		this.setsContraseña(sContraseña);
+		this.setsCorreoElectronico(sCorreoElectronico);
+	}
+	
 
 
 	@Override
@@ -111,7 +117,8 @@ public class usuario implements iLimitesGenerales,iUsuario{
 	public boolean setsContraseña(String sContraseña) {
 		boolean bExito = false;
 		if(sContraseña != null && sContraseña.length() >= LIMITCONTRASEÑAMIN && sContraseña.length() <= LIMITCONTRASEÑAMAX) {
-			this.sContraseña =encryptSha512(sContraseña);
+			//this.sContraseña =encryptSha512(sContraseña);
+			this.sContraseña = sContraseña;
 		}else {
 			this.sContraseña = null;
 		}

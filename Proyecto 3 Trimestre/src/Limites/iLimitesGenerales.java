@@ -43,6 +43,8 @@ public interface iLimitesGenerales {
 	public final byte LIMITTUVMAX =9;
 	public final int LIMITTUVDEXMAX =500;
 
+	//LoginViews
+	public byte LIMITEZEROVISTA = 0;
 
 	
 	

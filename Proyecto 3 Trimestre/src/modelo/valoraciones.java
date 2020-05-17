@@ -126,7 +126,7 @@ public class valoraciones implements iLimitesGenerales,iValoraciones{
 	@Override
     public String toString () {
        	String sResultado = "";
-       	sResultado += "-----------------------------"+"\n";
+       	
        	sResultado += "Id de la valoracion: "+this.getiIdValoracion()+"\n";
        	sResultado += "Puntuacion: "+this.getbPuntuacion()+"\n";
        	sResultado += "Precio Medio: "+this.getsDesValor()+"\n";

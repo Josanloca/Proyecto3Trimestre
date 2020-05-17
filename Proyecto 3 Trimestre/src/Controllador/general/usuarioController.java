@@ -47,4 +47,10 @@ public class usuarioController implements iUsuarioController{
 		}		
 		return LTU;
 	}
+	
+    public int checkUsuarioLogin (usuario oUsuario) {
+    	String sql = "SELECT COUNT(*) FROM usuario WHERE correo_Electronico LIKE \"" + oUsuario.getsCorreoElectronico() + "\" AND contraseña LIKE \""+oUsuario.getsContraseña()+"\"";
+    	System.out.println(sql);
+    	return ConexionBaseDatos.executeCount(sql);
+    }
 }
