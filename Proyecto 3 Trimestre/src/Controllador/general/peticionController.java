@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Controllador.ConexionBaseDatos;
-import Controllador.Tipo_estados.iPeticionController;
 import modelo.Peticion;
 import modelo.oferta;
 import modelo.usuario;
@@ -23,21 +22,20 @@ public class peticionController implements iPeticionController{
 		sql += ",\""+oPeticion.getoUsuarioPeticion().getsDni_nif();
 		sql += "\","+oPeticion.getoIdOferta().getId_Oferta();
 		sql += ",\""+oPeticion.getoEstadoPeticion().getsEstadoPeticion()+"\")";		
-		return ConexionBaseDatos.executeCount(sql);
+		return ConexionBaseDatos.executeUpdate(sql);
 	}
 	
 	@Override
 	public int remove(Peticion oPeticion) {
 		String sql = "DELETE FROM peticion WHERE id_peticion LIKE \""+oPeticion.getiIdPeticion()+"\"";
-		return ConexionBaseDatos.executeCount(sql);
+		return ConexionBaseDatos.executeUpdate(sql);
 	}
 	
 	@Override
-    public List<Peticion> ListaPeticionToda (usuario oUser) {
+    public List<Peticion> ListaPeticionToda () {
 		
 	List<Peticion> lPeticion = new ArrayList<Peticion>();	
 	String sql = "SELECT * FROM peticion";
-	System.out.println(sql);
 	Statement stm = null;
 	
 	try {
@@ -51,17 +49,13 @@ public class peticionController implements iPeticionController{
 		String sDescPeticion = rs.getString(2);
 		byte bPrecio = (byte)rs.getInt(3);
 		String sUsuario = rs.getString(4);
-		System.out.println(sUsuario);
 		byte bidOferta = (byte)rs.getInt(5);
-		System.out.println(bidOferta);
 		String sEP = rs.getString(6);
-		System.out.println(sEP);
+		usuario oUsuario = new usuario(sUsuario);
 		
-		usuario oUsuario = new usuario(sUsuario);	
-		System.out.println("vale: "+oUsuario.getsDni_nif());
 		EstadoPeticion oEP = new EstadoPeticion(sEP);
 		oferta oOferta = new oferta(bidOferta);
-		
+
 		lPeticion.add(new Peticion(bId_Peticion,sDescPeticion,bPrecio,oUsuario,oEP,oOferta));
 	    }
 	    stm.close();
@@ -71,4 +65,5 @@ public class peticionController implements iPeticionController{
 	return lPeticion;	
     }
     
+	
 }

@@ -87,7 +87,6 @@ public class Peticion implements iLimitesGenerales,iPeticion{
 	@Override
 	public boolean setoUsuarioPeticion(usuario oUsuarioPeticion) {
 		boolean bExito = false;
-		System.out.println(oUsuarioPeticion.getsDni_nif()+" tampoco?");
 		
 			this.oUsuarioPeticion = oUsuarioPeticion;
 			bExito = true;

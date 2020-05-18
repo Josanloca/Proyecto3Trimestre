@@ -1,4 +1,4 @@
-package Controllador.Tipo_estados;
+package Controllador.general;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ public interface iPeticionController {
 
 	public int add(Peticion oPeticion);
 	public int remove(Peticion oPeticion);
-    public List<Peticion> ListaPeticionToda (usuario oUser);
+    public List<Peticion> ListaPeticionToda ();
     
 }

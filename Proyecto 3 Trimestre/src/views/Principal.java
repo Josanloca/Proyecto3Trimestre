@@ -20,13 +20,16 @@ public class Principal {
 		byte bMenu;
 		
 		PaqueteController Controllador = new PaqueteController("tienda");
-
+		System.out.println(Controllador.getpeticionController().ListaPeticionToda());
+		
 		
 		if(ConexionBaseDatos.checkConnectionDatabase()) {
 			System.out.println("Conexion a la BD Correcta.");
 			
 			if(LoginViews.Registrar_Login()) {
 				oUsuario = LoginViews.entrada(Controllador);
+				//EL PASADOR
+				oUsuario = Controllador.getUsuarioController().GDUCAE(oUsuario);
 				
 				while (oUsuario == null) {
 					System.out.println("Acesso no autorizado, intentelo de nuevo.");
@@ -42,8 +45,8 @@ public class Principal {
 			}
 			
 			System.out.println("Bienvenido, ¿que quiere realizar hoy?");
-			
-			
+						
+			views.PeticionViews.EntradaPeticion(Controllador, oUsuario);
 			
 		}else {
 			System.out.println("Lo lamentamos pero el servidor no respondo, intentelo mas tarde.");
@@ -129,6 +132,23 @@ public class Principal {
 		
 		//System.out.println(d.getvaloracionController().ListaXPeticion(oV));
 
+		//System.out.println(Controllador.getofertaController().inicioPeticionConOferta());
+
+	}
+	
+	public static byte menuSelecPrincipal() {
+		byte bMenu = 0;
+		boolean bError = true;
+		
+		System.out.println("\n\nMenu principal: ");
+		System.out.println("*1* Crear una peticion.");
+		System.out.println("*2* Borrar una peticion.");
+		System.out.println("*3* Responder a una peticion.");
+		System.out.println("*4* Ver si tiene notificaciones de una peticion.");
+
+		
+		
+		return bMenu;
 	}
 
 }

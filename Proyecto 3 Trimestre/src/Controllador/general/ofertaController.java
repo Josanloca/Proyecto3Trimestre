@@ -61,4 +61,37 @@ public class ofertaController implements iOfertaController{
 	}	
 	return lOferta;	
     }
+    
+    
+	public oferta inicioPeticionConOferta() {
+		oferta oOferta = null,oObjeto2=null;
+		String sql = "SELECT * FROM oferta WHERE id_Oferta LIKE 10";
+		Statement stm = null;
+
+		try {
+		    stm = ConexionBaseDatos.getConnection().createStatement();
+		    ResultSet rs = stm.executeQuery(sql);
+		    while (rs.next()) {
+		    byte bId_Oferta = (byte)rs.getInt(1);
+			String sDescOferta = rs.getString(2);
+			byte bPrecio = (byte)rs.getInt(3);
+			String sUsuario = rs.getString(4);
+			String sEO = rs.getString(5);
+			usuario oUsuario = new usuario(sUsuario);	
+			EstadoOferta oEO = new EstadoOferta(sEO);
+		    
+			oObjeto2 =new oferta(bId_Oferta,sDescOferta,bPrecio,oUsuario,oEO);
+		    }
+			if(existeOferta(oObjeto2) >0) {
+				oOferta = oObjeto2;
+			}
+		    
+		    stm.close();
+		} catch (SQLException e) {
+			oOferta = null;
+		}
+		
+		return oOferta;
+	}
+
 }

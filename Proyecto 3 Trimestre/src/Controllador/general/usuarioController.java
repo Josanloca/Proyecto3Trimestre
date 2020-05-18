@@ -6,7 +6,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import Controllador.ConexionBaseDatos;
+import modelo.oferta;
 import modelo.usuario;
+import modelo.tipo_estados.EstadoOferta;
+import modelo.tipo_estados.TipoUsuario;
 
 public class usuarioController implements iUsuarioController{
 
@@ -63,4 +66,37 @@ public class usuarioController implements iUsuarioController{
     	System.out.println(sql);
     	return ConexionBaseDatos.executeCount(sql);
     }
+    
+    //GeneradorDeUsuarioCompletoAlEntrar
+    
+	public usuario GDUCAE(usuario oUsuario) {
+		usuario oObjeto=null;
+		String sql = "SELECT * FROM usuario WHERE Correo_Electronico LIKE \"" + oUsuario.getsCorreoElectronico() + "\"";
+		System.out.println(sql);
+		Statement stm = null;
+
+		try {
+		    stm = ConexionBaseDatos.getConnection().createStatement();
+		    ResultSet rs = stm.executeQuery(sql);
+		    while (rs.next()) {
+		    String sDni_nif = rs.getString(1);
+			String sNombre = rs.getString(2);
+			String sContraseña = rs.getString(3);
+			String sCorreoElectronico = rs.getString(5);
+			int iTelefono = (int)rs.getInt(6);
+			String sDireccion = rs.getString(7);
+			String sDescripccion = rs.getString(8);
+			String sTipoUsuario = rs.getString(9);
+				
+			TipoUsuario oTipoUsuario = new TipoUsuario(sTipoUsuario);
+		    
+			oObjeto =new usuario(sDni_nif,sNombre,sContraseña,sCorreoElectronico,iTelefono,sDireccion,sDescripccion,oTipoUsuario);
+		    }		    
+		    stm.close();
+		} catch (SQLException e) {
+			oObjeto = null;
+		}
+		
+		return oObjeto;
+	}
 }

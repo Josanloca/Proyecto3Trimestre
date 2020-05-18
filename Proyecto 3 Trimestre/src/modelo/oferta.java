@@ -136,8 +136,8 @@ public class oferta implements iLimitesGenerales,iOferta{
     		sResultado += "Descripccion de la oferta: "+this.DescOferta+"\n";
     	}
     	sResultado += "Dinero ofrecido: "+this.PrecioOferta+"\n";
-    	sResultado += "Id del usuario ofertante: "+this.oUsuarioOferta+"\n";
-    	sResultado += "Estado de la oferta: "+this.oEstadoOferta+"\n";
+    	sResultado += "Id del usuario ofertante: "+this.oUsuarioOferta.getsDni_nif()+"\n";
+    	sResultado += "Estado de la oferta: "+this.oEstadoOferta.getsEstadoOferta()+"\n";
 
     	return sResultado;
     	

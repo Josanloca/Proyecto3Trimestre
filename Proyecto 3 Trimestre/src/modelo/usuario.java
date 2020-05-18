@@ -35,6 +35,18 @@ public class usuario implements iLimitesGenerales,iUsuario{
 		this.setoTipoUsuario(oTipoUsuario);
 	}
 	
+	//GENERAL SIN FECHA
+	public usuario(String sDni_nif,String sNombre,String sContraseña,String sCorreoElectronico,int iTelefono,String sDireccion,String sDescripccion,TipoUsuario oTipoUsuario) {
+		this.setsDni_nif(sDni_nif);
+		this.setsNombre(sNombre);
+		this.setsContraseña(sContraseña);
+		this.setsCorreoElectronico(sCorreoElectronico);
+		this.setiTelefono(iTelefono);
+		this.setsDireccion(sDireccion);
+		this.setsDescripccion(sDescripccion);
+		this.setoTipoUsuario(oTipoUsuario);
+	}
+	
 	//MODO BUSQUEDA POR DNI
 	
 	public usuario(String sDni_nif) {
