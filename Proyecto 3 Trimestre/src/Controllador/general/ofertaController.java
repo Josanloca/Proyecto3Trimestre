@@ -94,4 +94,21 @@ public class ofertaController implements iOfertaController{
 		return oOferta;
 	}
 
+	public byte ContadorOferta() {
+		byte bResultado=0;
+		Statement stm = null;
+
+		String sql = "SELECT MAX(id_Oferta) FROM oferta WHERE id_Oferta NOT LIKE 10";
+		try {
+		    stm = ConexionBaseDatos.getConnection().createStatement();
+		    ResultSet rs = stm.executeQuery(sql);
+		    while (rs.next()) {
+		    bResultado = (byte)rs.getInt(1);
+		    }
+		    stm.close();
+		} catch (SQLException e) {
+			bResultado = 0;
+		}		
+		return bResultado;
+	}
 }

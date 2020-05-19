@@ -1,50 +1,29 @@
 package views;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
-import Controllador.ConexionBaseDatos;
+
 import Controllador.general.PaqueteController;
-import Limites.iLimitesGenerales;
 import Valida.ValidaLibrary;
 import modelo.Peticion;
 import modelo.oferta;
 import modelo.usuario;
-import modelo.tipo_estados.EstadoOferta;
 import modelo.tipo_estados.EstadoPeticion;
 
 public class PeticionViews {
 	
-	public static byte ContadorPeticion() {
-		byte bResultado=0;
-		Statement stm = null;
 
-		String sql = "SELECT MAX(id_Peticion) FROM peticion";
-		try {
-		    stm = ConexionBaseDatos.getConnection().createStatement();
-		    ResultSet rs = stm.executeQuery(sql);
-		    while (rs.next()) {
-		    bResultado = (byte)rs.getInt(1);
-		    }
-		    stm.close();
-		} catch (SQLException e) {
-			bResultado = 0;
-		}		
-		return bResultado;
-	}
 
 	public static Peticion EntradaPeticion(PaqueteController Controllador,usuario oUsuario) {
 		Peticion oPeticion = null,oObjeto2;
 		oferta oOferta =null;
 		boolean bEC = true;
-		int iIdPeticion=0,iPrecio=0,iIdOferta=0;
-		String sDescripcion = null, sContraseña = null,iUsuarioPeticion= null,sEstadoPeticion=null;
+		int iIdPeticion=0,iPrecio=0;
+		String sDescripcion = null,sEstadoPeticion=null;
 		System.out.println("Para crear una peticion, por favor rellene los siguientes campos: ");
 		
 		while(bEC) {
 		    try {
-		    iIdPeticion = ContadorPeticion()+1;
+		    iIdPeticion = Controllador.getpeticionController().ContadorPeticion()+1;
 		    bEC = false;
 		    } catch(Exception ex) {
 			System.out.println("Error en la id: " + ex.getMessage()+"\n");
@@ -110,6 +89,63 @@ public class PeticionViews {
 						System.out.println("peticion realizada correctamente");
 					}				
 		return oPeticion;
+	}
+	
+	public static void MostrarPeticionesPropias(PaqueteController Controllador,usuario oUsuario) {
+		System.out.println("Aqui tiene una lista de sus peticiones \n");
+		System.out.println(Controllador.getpeticionController().ListaPeticionXDNI(oUsuario));
+	}
+	
+	public static void BorrarPeticion(PaqueteController Controllador,usuario oUsuario) {
+		boolean bEC = true;
+		Peticion oPeticion = null;
+		int iDato =0;
+		System.out.println("Escriba el id de la peticion que quiere borrar \n");
+		System.out.println(Controllador.getpeticionController().ListaPeticionXDNI(oUsuario));
+
+		while(bEC) {
+		    try {
+		    iDato = (int) ValidaLibrary.valida("Introduce el id", 1, Controllador.getpeticionController().ListaPeticionXDNI(oUsuario).size(), 1);
+		    bEC = false;
+		    } catch(Exception ex) {
+			System.out.println("Error en la introduccion: " + ex.getMessage()+"\n");
+			System.out.println("Intentelo de nuevo \n");
+		    }
+		}
+		oPeticion = new Peticion(iDato);
+		
+		if(Controllador.getpeticionController().remove(oPeticion) >0) {
+			System.out.println("Borrado realizado");
+		}else {
+			System.out.println("Borrado no realizado");
+		}
+		
+	}
+	
+	public static void seleccionarPeticion(PaqueteController Controllador,usuario oUsuario) {
+		boolean bEC = true;
+		Peticion oPeticion = null;
+		int iDato =0;
+		System.out.println("******************************* \n");
+		System.out.println(Controllador.getpeticionController().ListaPeticionSinContarte(oUsuario));
+
+		while(bEC) {
+		    try {
+		    iDato = (int) ValidaLibrary.valida("Introduce el id de la peticion que quieres mandar una oferta", 1, Controllador.getpeticionController().ListaPeticionSinContarte(oUsuario).size(), 1);
+		    bEC = false;
+		    } catch(Exception ex) {
+			System.out.println("Error en la introduccion: " + ex.getMessage()+"\n");
+			System.out.println("Intentelo de nuevo \n");
+		    }
+		}
+		oPeticion = new Peticion(iDato);
+		
+		if(Controllador.getpeticionController().remove(oPeticion) >0) {
+			System.out.println("Borrado realizado");
+		}else {
+			System.out.println("Borrado no realizado");
+		}
+		
 	}
 
 }

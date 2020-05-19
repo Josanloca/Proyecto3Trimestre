@@ -6,9 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import Controllador.ConexionBaseDatos;
-import modelo.oferta;
 import modelo.usuario;
-import modelo.tipo_estados.EstadoOferta;
 import modelo.tipo_estados.TipoUsuario;
 
 public class usuarioController implements iUsuarioController{
@@ -95,7 +93,11 @@ public class usuarioController implements iUsuarioController{
 		    stm.close();
 		} catch (SQLException e) {
 			oObjeto = null;
+		}catch(NullPointerException Nex){
+			System.out.println(Nex.getMessage()+"\n");	
+			oObjeto = null;
 		}
+		
 		
 		return oObjeto;
 	}

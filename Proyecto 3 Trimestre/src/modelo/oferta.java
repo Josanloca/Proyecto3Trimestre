@@ -75,12 +75,10 @@ public class oferta implements iLimitesGenerales,iOferta{
 	@Override
 	public boolean setoUsuarioOferta(usuario oUsuarioOferta) {
 		boolean bExito = false;
-		if(oUsuarioOferta.checkUsuario() || oUsuarioOferta.getsDni_nif() != null) {
+		
 			this.oUsuarioOferta = oUsuarioOferta;
 			bExito = true;
-		}else {
-			this.oUsuarioOferta = null;
-		}
+			
 		return bExito;
 	}
 
@@ -136,9 +134,12 @@ public class oferta implements iLimitesGenerales,iOferta{
     		sResultado += "Descripccion de la oferta: "+this.DescOferta+"\n";
     	}
     	sResultado += "Dinero ofrecido: "+this.PrecioOferta+"\n";
-    	sResultado += "Id del usuario ofertante: "+this.oUsuarioOferta.getsDni_nif()+"\n";
-    	sResultado += "Estado de la oferta: "+this.oEstadoOferta.getsEstadoOferta()+"\n";
-
+    	if(this.oUsuarioOferta!= null) {
+        	sResultado += "Id del usuario ofertante: "+oUsuarioOferta.getsDni_nif()+"\n";
+    	}
+    	if(this.oEstadoOferta!= null) {
+        	sResultado += "Estado de la oferta: "+this.oEstadoOferta.getsEstadoOferta()+"\n";
+    	}
     	return sResultado;
     	
     }

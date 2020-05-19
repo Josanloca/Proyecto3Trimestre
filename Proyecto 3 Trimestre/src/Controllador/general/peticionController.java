@@ -51,8 +51,9 @@ public class peticionController implements iPeticionController{
 		String sUsuario = rs.getString(4);
 		byte bidOferta = (byte)rs.getInt(5);
 		String sEP = rs.getString(6);
-		usuario oUsuario = new usuario(sUsuario);
 		
+		usuario oUsuario = new usuario(sUsuario);
+
 		EstadoPeticion oEP = new EstadoPeticion(sEP);
 		oferta oOferta = new oferta(bidOferta);
 
@@ -64,6 +65,90 @@ public class peticionController implements iPeticionController{
 	}	
 	return lPeticion;	
     }
-    
+   
+	public byte ContadorPeticion() {
+		byte bResultado=0;
+		Statement stm = null;
+
+		String sql = "SELECT MAX(id_Peticion) FROM peticion";
+		try {
+		    stm = ConexionBaseDatos.getConnection().createStatement();
+		    ResultSet rs = stm.executeQuery(sql);
+		    while (rs.next()) {
+		    bResultado = (byte)rs.getInt(1);
+		    }
+		    stm.close();
+		} catch (SQLException e) {
+			bResultado = 0;
+		}		
+		return bResultado;
+	}
 	
+    public List<Peticion> ListaPeticionXDNI(usuario oUsuario) {
+		
+	List<Peticion> lPeticion = new ArrayList<Peticion>();	
+	String sql = "SELECT * FROM peticion WHERE usuario_Peticion LIKE \""+oUsuario.getsDni_nif()+"\"";
+	Statement stm = null;
+	
+	try {
+	    stm = ConexionBaseDatos.getConnection().createStatement();
+	    
+	    ResultSet rs = stm.executeQuery(sql);
+	    
+	    while (rs.next()) {
+	    	
+	    byte bId_Peticion = (byte) rs.getInt(1);
+		String sDescPeticion = rs.getString(2);
+		int bPrecio = (int) rs.getInt(3);
+		String sUsuario = rs.getString(4);
+		byte bidOferta = (byte)rs.getInt(5);
+		String sEP = rs.getString(6);
+		
+		usuario oUser = new usuario(sUsuario);
+		EstadoPeticion oEP = new EstadoPeticion(sEP);
+		oferta oOferta = new oferta(bidOferta);
+
+		lPeticion.add(new Peticion(bId_Peticion,sDescPeticion,bPrecio,oUser,oEP,oOferta));
+	    }
+	    stm.close();
+	} catch (SQLException e) {
+		lPeticion = null;
+	}	
+	return lPeticion;	
+    }
+	
+    public List<Peticion> ListaPeticionSinContarte(usuario oUsuario) {
+		
+    	List<Peticion> lPeticion = new ArrayList<Peticion>();	
+    	String sql = "SELECT * FROM peticion WHERE usuario_Peticion NOT LIKE \""+oUsuario.getsDni_nif()+"\"";
+    	Statement stm = null;
+    	
+    	try {
+    	    stm = ConexionBaseDatos.getConnection().createStatement();
+    	    
+    	    ResultSet rs = stm.executeQuery(sql);
+    	    
+    	    while (rs.next()) {
+    	    	
+    	    byte bId_Peticion = (byte) rs.getInt(1);
+    		String sDescPeticion = rs.getString(2);
+    		int bPrecio = (int) rs.getInt(3);
+    		String sUsuario = rs.getString(4);
+    		byte bidOferta = (byte)rs.getInt(5);
+    		String sEP = rs.getString(6);
+    		
+    		usuario oUser = new usuario(sUsuario);
+    		EstadoPeticion oEP = new EstadoPeticion(sEP);
+    		oferta oOferta = new oferta(bidOferta);
+
+    		lPeticion.add(new Peticion(bId_Peticion,sDescPeticion,bPrecio,oUser,oEP,oOferta));
+    	    }
+    	    stm.close();
+    	} catch (SQLException e) {
+    		lPeticion = null;
+    	}	
+    	return lPeticion;	
+        }
+    
+    
 }

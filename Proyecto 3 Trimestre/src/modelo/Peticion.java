@@ -155,12 +155,16 @@ public class Peticion implements iLimitesGenerales,iPeticion{
    public String toString () {
    	String sResultado = "";
    	
-   	sResultado += "Id del pedido: "+this.getoIdOferta()+"\n";
+   	sResultado += "Id del pedido: "+this.getiIdPeticion()+"\n";
    	sResultado += "Descripccion: "+this.getsDescripcion()+"\n";
    	sResultado += "Precio Medio: "+this.getiPrecio()+"\n";
    	sResultado += "Nombre del usuario: "+this.getoUsuarioPeticion().getsDni_nif()+"\n";
    	sResultado += "Estado de la peticion: "+this.getoEstadoPeticion().getsEstadoPeticion()+"\n";
-   	sResultado += "Id de la oferta es: "+this.getoIdOferta().getId_Oferta()+"\n";
+   	if(this.getoIdOferta().getId_Oferta() == 10) {
+   		sResultado += "Id de la oferta es: EN ESPERA A SELECCIONAR UNA OFERTA\n";
+   	}else {
+   		sResultado += "Id de la oferta es: "+this.getoIdOferta().getId_Oferta()+"\n";
+   	}
    			
 	return sResultado;
 

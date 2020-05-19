@@ -17,13 +17,14 @@ public class Principal {
 
 	public static void main(String[] args) {
 		usuario oUsuario = null;	
-		byte bMenu;
+		byte bMenu = 0;
 		
 		PaqueteController Controllador = new PaqueteController("tienda");
-		System.out.println(Controllador.getpeticionController().ListaPeticionToda());
-		
-		
-		if(ConexionBaseDatos.checkConnectionDatabase()) {
+		System.out.println(Controllador.getofertaController().ContadorOferta());
+
+		//System.out.println(Controllador.getpeticionController().ListaPeticionToda());
+
+		if(ConexionBaseDatos.checkConnectionDatabase()) {			
 			System.out.println("Conexion a la BD Correcta.");
 			
 			if(LoginViews.Registrar_Login()) {
@@ -46,8 +47,10 @@ public class Principal {
 			
 			System.out.println("Bienvenido, ¿que quiere realizar hoy?");
 						
-			views.PeticionViews.EntradaPeticion(Controllador, oUsuario);
-			
+			//views.PeticionViews.EntradaPeticion(Controllador, oUsuario);
+			//views.PeticionViews.BorrarPeticion(Controllador, oUsuario);
+			views.OfertaViews.EntradaPeticion(Controllador, oUsuario);
+
 		}else {
 			System.out.println("Lo lamentamos pero el servidor no respondo, intentelo mas tarde.");
 		}
@@ -55,51 +58,7 @@ public class Principal {
 
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		//LocalDate localDate = LocalDate.of(1995, 07, 22);
 		//TipoUsuario tu= new TipoUsuario("PARTICULAR");
 		
@@ -143,7 +102,11 @@ public class Principal {
 		System.out.println("\n\nMenu principal: ");
 		System.out.println("*1* Crear una peticion.");
 		System.out.println("*2* Borrar una peticion.");
-		System.out.println("*3* Responder a una peticion.");
+		System.out.println("*3* Mostrar mis peticiones.");
+		System.out.println("*5* Ver peticiones globales(sin contar las tuyas).");
+
+		System.out.println("*5* .");
+		System.out.println("*5* Ver sus ofertas.");
 		System.out.println("*4* Ver si tiene notificaciones de una peticion.");
 
 		

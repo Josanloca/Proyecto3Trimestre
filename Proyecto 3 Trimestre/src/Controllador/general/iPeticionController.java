@@ -3,7 +3,6 @@ package Controllador.general;
 import java.util.List;
 
 import modelo.Peticion;
-import modelo.usuario;
 
 public interface iPeticionController {
 
