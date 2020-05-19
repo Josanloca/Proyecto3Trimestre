@@ -10,17 +10,20 @@ public class oferta implements iLimitesGenerales,iOferta{
 	private int PrecioOferta; //nn
 	private usuario oUsuarioOferta; //FK
 	private EstadoOferta oEstadoOferta; //FK
+	private Peticion oPeticion; //FK
 	
+
 	public oferta(int id_Oferta) {
 		this.setId_Oferta(id_Oferta);
 	}
 	
-	public oferta(int id_Oferta,String DescOferta,int PrecioOferta,usuario oUsuarioOferta,EstadoOferta oEstadoOferta) {
+	public oferta(int id_Oferta,String DescOferta,int PrecioOferta,usuario oUsuarioOferta,EstadoOferta oEstadoOferta,Peticion oPeticion) {
 		this.setId_Oferta(id_Oferta);
 		this.setDescOferta(DescOferta);
 		this.setPrecioOferta(PrecioOferta);
 		this.setoUsuarioOferta(oUsuarioOferta);
 		this.setoEstadoOferta(oEstadoOferta);
+		this.setoPeticion(oPeticion);
 	}
 
 	@Override
@@ -97,6 +100,14 @@ public class oferta implements iLimitesGenerales,iOferta{
 		return bExito;
 	}
 	
+	public Peticion getoPeticion() {
+		return oPeticion;
+	}
+
+	public void setoPeticion(Peticion oPeticion) {
+		this.oPeticion = oPeticion;
+	}
+	
 	@Override
 	public boolean checkOferta() {
 		boolean bExito = false;
@@ -140,6 +151,7 @@ public class oferta implements iLimitesGenerales,iOferta{
     	if(this.oEstadoOferta!= null) {
         	sResultado += "Estado de la oferta: "+this.oEstadoOferta.getsEstadoOferta()+"\n";
     	}
+    	sResultado += "Estado de la oferta: "+this.oPeticion.getiIdPeticion()+"\n";
     	return sResultado;
     	
     }

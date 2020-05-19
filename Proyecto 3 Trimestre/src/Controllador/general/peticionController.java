@@ -31,6 +31,12 @@ public class peticionController implements iPeticionController{
 		return ConexionBaseDatos.executeUpdate(sql);
 	}
 	
+    public int existePeticio (Peticion oPeticion) {
+    	String sql = "SELECT COUNT(*) FROM peticion WHERE id_peticion LIKE \""+oPeticion.getiIdPeticion()+"\"";
+    	//System.out.println(sql);
+    	return ConexionBaseDatos.executeCount(sql);
+    }
+	
 	@Override
     public List<Peticion> ListaPeticionToda () {
 		
@@ -65,6 +71,39 @@ public class peticionController implements iPeticionController{
 	}	
 	return lPeticion;	
     }
+	
+	public List<Peticion> ListaPeticionNoFinalizadas(usuario oUsuario) {
+		
+		List<Peticion> lPeticion = new ArrayList<Peticion>();	
+		String sql = "SELECT * FROM peticion WHERE nombre_estado_peticion LIKE \"ESPERA\" AND usuario_Peticion NOT LIKE \""+oUsuario.getsDni_nif()+"\"";
+		Statement stm = null;
+		
+		try {
+		    stm = ConexionBaseDatos.getConnection().createStatement();
+		    
+		    ResultSet rs = stm.executeQuery(sql);
+		    
+		    while (rs.next()) {
+		    	
+		    byte bId_Peticion = (byte) rs.getInt(1);
+			String sDescPeticion = rs.getString(2);
+			int bPrecio = (int) rs.getInt(3);
+			String sUsuario = rs.getString(4);
+			byte bidOferta = (byte)rs.getInt(5);
+			String sEP = rs.getString(6);
+			
+			usuario oU = new usuario(sUsuario);
+			EstadoPeticion oEP = new EstadoPeticion(sEP);
+			oferta oOferta = new oferta(bidOferta);
+
+			lPeticion.add(new Peticion(bId_Peticion,sDescPeticion,bPrecio,oU,oEP,oOferta));
+		    }
+		    stm.close();
+		} catch (SQLException e) {
+			lPeticion = null;
+		}	
+		return lPeticion;	
+	    }
    
 	public byte ContadorPeticion() {
 		byte bResultado=0;
@@ -120,7 +159,7 @@ public class peticionController implements iPeticionController{
     public List<Peticion> ListaPeticionSinContarte(usuario oUsuario) {
 		
     	List<Peticion> lPeticion = new ArrayList<Peticion>();	
-    	String sql = "SELECT * FROM peticion WHERE usuario_Peticion NOT LIKE \""+oUsuario.getsDni_nif()+"\"";
+    	String sql = "SELECT * FROM peticion WHERE usuario_Peticion NOT LIKE \""+oUsuario.getsDni_nif()+"\" AND";
     	Statement stm = null;
     	
     	try {
@@ -149,6 +188,16 @@ public class peticionController implements iPeticionController{
     	}	
     	return lPeticion;	
         }
+    
+
+    
+    public int ActualizarPeticionAñadiendoOferta (Peticion oPeticion) {
+    	String sql = "UPDATE peticion ";
+    	sql +="SET nombre_estado_Peticion = \"PROCESANDO\"";
+    	sql	+=	"WHERE id_peticion = "+oPeticion.getiIdPeticion();
+    	return ConexionBaseDatos.executeUpdate(sql);
+    }
+    
     
     
 }

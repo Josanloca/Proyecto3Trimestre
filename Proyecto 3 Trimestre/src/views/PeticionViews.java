@@ -96,6 +96,8 @@ public class PeticionViews {
 		System.out.println(Controllador.getpeticionController().ListaPeticionXDNI(oUsuario));
 	}
 	
+	
+	
 	public static void BorrarPeticion(PaqueteController Controllador,usuario oUsuario) {
 		boolean bEC = true;
 		Peticion oPeticion = null;
@@ -105,7 +107,7 @@ public class PeticionViews {
 
 		while(bEC) {
 		    try {
-		    iDato = (int) ValidaLibrary.valida("Introduce el id", 1, Controllador.getpeticionController().ListaPeticionXDNI(oUsuario).size(), 1);
+		    iDato = (int) ValidaLibrary.valida("Introduce el id del que quieres borrar", 1, Controllador.getpeticionController().ListaPeticionXDNI(oUsuario).size(), 1);
 		    bEC = false;
 		    } catch(Exception ex) {
 			System.out.println("Error en la introduccion: " + ex.getMessage()+"\n");
@@ -122,7 +124,7 @@ public class PeticionViews {
 		
 	}
 	
-	public static void seleccionarPeticion(PaqueteController Controllador,usuario oUsuario) {
+	public static void seleccionarPeticionDefinitiva(PaqueteController Controllador,usuario oUsuario) {
 		boolean bEC = true;
 		Peticion oPeticion = null;
 		int iDato =0;
@@ -131,7 +133,7 @@ public class PeticionViews {
 
 		while(bEC) {
 		    try {
-		    iDato = (int) ValidaLibrary.valida("Introduce el id de la peticion que quieres mandar una oferta", 1, Controllador.getpeticionController().ListaPeticionSinContarte(oUsuario).size(), 1);
+		    iDato = (int) ValidaLibrary.valida("Dime el id de la peticion a la que quieres realizar una oferta: ", 1, Controllador.getpeticionController().ListaPeticionSinContarte(oUsuario).size(), 1);
 		    bEC = false;
 		    } catch(Exception ex) {
 			System.out.println("Error en la introduccion: " + ex.getMessage()+"\n");
@@ -140,12 +142,58 @@ public class PeticionViews {
 		}
 		oPeticion = new Peticion(iDato);
 		
-		if(Controllador.getpeticionController().remove(oPeticion) >0) {
-			System.out.println("Borrado realizado");
+		if(Controllador.getpeticionController().ActualizarPeticionAñadiendoOferta(oPeticion) >0) {
+			System.out.println("actualizacion realizada");
 		}else {
-			System.out.println("Borrado no realizado");
+			System.out.println("actualizacion no realizado");
 		}
 		
+	}
+	
+	public static void MostrarSeleccionar(PaqueteController Controllador,usuario oUsuario) {
+		boolean bEC = true;
+		byte bDato=0;
+		Peticion oPeticion = null;
+		int iDato =0;
+		
+		System.out.println(Controllador.getpeticionController().ListaPeticionNoFinalizadas(oUsuario));
+		System.out.println("Estos son las peticiones disponibles.");
+		System.out.println();
+		
+		while(bEC) {
+		    try {
+		    bDato = (byte) ValidaLibrary.valida("¿Quiere proponer una oferta a alguna peticion? (NO =1 Y SI = 2)",1,2,3);
+		    
+		    if(bDato ==1) {
+		    	System.out.println("Volviendo al menu");
+		    }else if(bDato ==2) {
+		    	
+		    	bEC = true;
+		    	while(bEC) {
+				    try {
+				    iDato = (int) ValidaLibrary.valida("Dime el id de la peticion a la que quieres realizar una oferta: ", 1, Controllador.getpeticionController().ListaPeticionNoFinalizadas(oUsuario).size(), 1);
+				    bEC = false;
+				    } catch(Exception ex) {
+					System.out.println("Error en la introduccion: " + ex.getMessage()+"\n");
+					System.out.println("Intentelo de nuevo \n");
+				    }
+				}
+				oPeticion = new Peticion(iDato);
+				
+				if(views.OfertaViews.EntradaOferta(Controllador, oUsuario, oPeticion)) {
+					System.out.println("Datos recibidos");
+				}else {
+					System.out.println("Datos no recibidos");
+				}
+		    }else {
+		    	System.out.println("ERROR VALIDA TIPO USUARIO");
+		    }
+		    bEC = false;
+		    } catch(Exception ex) {
+			System.out.println("Error en la introduccion del tipo de usuario: " + ex.getMessage()+"\n");
+			System.out.println("Intentelo de nuevo \n");
+		    }
+		}	
 	}
 
 }

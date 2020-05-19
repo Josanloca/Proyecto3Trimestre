@@ -61,7 +61,7 @@ public class usuarioController implements iUsuarioController{
 	
     public int checkUsuarioLogin (usuario oUsuario) {
     	String sql = "SELECT COUNT(*) FROM usuario WHERE correo_Electronico LIKE \"" + oUsuario.getsCorreoElectronico() + "\" AND contraseña LIKE \""+oUsuario.getsContraseña()+"\"";
-    	System.out.println(sql);
+  
     	return ConexionBaseDatos.executeCount(sql);
     }
     
@@ -70,7 +70,7 @@ public class usuarioController implements iUsuarioController{
 	public usuario GDUCAE(usuario oUsuario) {
 		usuario oObjeto=null;
 		String sql = "SELECT * FROM usuario WHERE Correo_Electronico LIKE \"" + oUsuario.getsCorreoElectronico() + "\"";
-		System.out.println(sql);
+		
 		Statement stm = null;
 
 		try {
