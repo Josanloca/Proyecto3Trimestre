@@ -4,11 +4,12 @@ import java.sql.SQLException;
 
 import Controllador.ConexionBaseDatos;
 import Controllador.general.PaqueteController;
+import Limites.iLimitesGenerales;
 import Valida.ValidaLibrary;
 import modelo.usuario;
 
 
-public class Principal {
+public class Principal implements iLimitesGenerales{
 
 	public static void main(String[] args) {
 		usuario oUsuario = null;	
@@ -21,7 +22,9 @@ public class Principal {
 			System.out.println("Conexion a la BD Correcta.");
 			
 			if(LoginViews.Registrar_Login()) {
+				do{
 				oUsuario = LoginViews.entrada(Controllador);
+				}while(oUsuario == null);
 				//EL PASADOR
 				oUsuario = Controllador.getUsuarioController().GDUCAE(oUsuario);
 				
@@ -37,10 +40,9 @@ public class Principal {
 					oUsuario = LoginViews.Registrar(Controllador);
 				}
 			}
-
 			
 			System.out.println("Bienvenido, ¿que quiere realizar hoy?");
-
+			
 			do {
 				bMenu = menuSelecPrincipal();
 				switch (bMenu) {
@@ -69,7 +71,10 @@ public class Principal {
 					views.ValoracionViws.FinalizarOfertaYPeticion(Controllador, oUsuario);
 				    break;
 				case 9: 
-					views.ValoracionViws.EntradaValoracionPeticion(Controllador, oUsuario);
+					views.ValoracionViws.ValorarOfertaXPeticion(Controllador, oUsuario);
+				    break;
+				case 10: 
+					views.ValoracionViws.VerValoracionSeleccionada(Controllador, oUsuario);;
 				    break;
 				default:
 				    try {
@@ -78,16 +83,13 @@ public class Principal {
 					
 					e.printStackTrace();
 				    }
-				    System.out.println("Hasta luego.");
+				    System.out.println("Que pase un buen dia.");
 				}
-
-			    } while (bMenu != -1);
-			
+			    } while (bMenu != -LIMITEONE);
 			
 		}else {
 			System.out.println("Lo lamentamos pero el servidor no respondo, intentelo mas tarde.");
 		}
-
 	}
 	
 	public static byte menuSelecPrincipal() {
@@ -99,18 +101,17 @@ public class Principal {
 		System.out.println("*2* Borrar una peticion.");
 		System.out.println("*3* Mostrar mis peticiones.");
 		System.out.println("*4* Ver peticiones globales(sin contar las tuyas ni las finalizadas o en progreso).");
-		System.out.println("*5* Ver sus ofertas.");
+		System.out.println("*5* Ver tus ofertas.");
 		System.out.println("*6* Ver las ofertas a tus peticiones.");
 		System.out.println("*7* Seleccionar la oferta a tus peticiones.");
 		System.out.println("*8* Terminar el trabajo de una oferta tuya.");
 		System.out.println("*9* Valorar algun trabajo como dueño de la peticion.");
+		System.out.println("*10* Ver las valoraciones de una peticion");
+		System.out.println("Para salir pulsar -1");
 
-
-
-		
 		while (bError) {
 		    try {
-		    	bMenu = (byte) ValidaLibrary.valida("Introduce una opcion: ", 1, 10, 3);
+		    	bMenu = (byte) ValidaLibrary.valida("Introduce una opcion: ",LIMITELESSONE,LIMITEN,LIMITHRE);
 		    	bError = false;
 		    } catch (Exception ex) {
 			System.out.println("Error: " + ex.getMessage());

@@ -10,4 +10,7 @@ public interface iUsuarioController {
 	public int remove (usuario oUsuario);
     public int existeUsuario (usuario oUsuario);
 	public List<String> ListaDeLosUsuarioNombre();
+    public int checkUsuarioLogin (usuario oUsuario);
+	public usuario GDUCAE(usuario oUsuario);
+	
 }

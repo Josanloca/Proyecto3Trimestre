@@ -8,7 +8,7 @@ import Valida.ValidaLibrary;
 import modelo.usuario;
 import modelo.tipo_estados.TipoUsuario;
 
-public class LoginViews {
+public class LoginViews implements iLimitesGenerales{
 	
 	public static boolean Registrar_Login() {
 		boolean bResultado= false,bEC = true;	
@@ -16,16 +16,16 @@ public class LoginViews {
 		
 		while(bEC) {
 		    try {
-				byBoolean = (byte) ValidaLibrary.valida("¿Deseas inicar sesion o registrarte? (iniciar sesion = 0,registrarte = 1)", 0, 1, 3);
+				byBoolean = (byte) ValidaLibrary.valida("¿Deseas inicar sesion o registrarte? (iniciar sesion = 0,registrarte = 1)", LIMITEZEROVIEWS, LIMITEONE, LIMITHRE);
 				bEC = false;
 		    } catch(Exception ex) {
 			System.out.println("Error en la seleccion: " + ex.getMessage()+"\n");
 			System.out.println("Intentelo de nuevo \n");
 		    }
 		}
-		if(byBoolean == 0) {
+		if(byBoolean == LIMITEZEROVIEWS) {
 			bResultado = true;
-		}else if(byBoolean == 1) {
+		}else if(byBoolean == LIMITEONE) {
 			bResultado = false;
 		}		
 		return bResultado;
@@ -60,9 +60,11 @@ public class LoginViews {
 		    usuario oUEntrada = new usuario(sContraseña,sCorreo);
 		    
 		    //COMPROBADOR
-		    if(Controllador.getUsuarioController().checkUsuarioLogin(oUEntrada) > iLimitesGenerales.LIMITEZEROVISTA) {
+		    if(Controllador.getUsuarioController().checkUsuarioLogin(oUEntrada) > LIMITEZEROVIEWS) {
 		    	oUsuario = oUEntrada;
-		    }   
+		    }else {
+		    	System.out.println("ERROR, USUARIO NO REGISTRADO");
+		    }
 		}		
 		return oUsuario;
 	}
@@ -126,7 +128,7 @@ public class LoginViews {
 		
 		while(bEC) {
 		    try {
-		    fecha_Mes =(int) ValidaLibrary.valida("Introuzca en que mes naciste (MIN 1 - MAX 12): ", 1, 12, 1);
+		    fecha_Mes =(int) ValidaLibrary.valida("Introuzca en que mes naciste (MIN 1 - MAX 12): ", LIMITEONE, LIMIMAXMES, LIMITEONE);
 		    bEC = false;
 		    } catch(Exception ex) {
 			System.out.println("Error en la introduccion del mes: " + ex.getMessage()+"\n");
@@ -138,7 +140,7 @@ public class LoginViews {
 		
 		while(bEC) {
 		    try {
-		    fecha_Dia =(int) ValidaLibrary.valida("Introuzca en que dia naciste(MIN 1 - MAX 30): ", 1, 30, 1);
+		    fecha_Dia =(int) ValidaLibrary.valida("Introuzca en que dia naciste(MIN 1 - MAX 30): ", LIMITEONE, LIMIMAXDIA, LIMITEONE);
 		    bEC = false;
 		    } catch(Exception ex) {
 			System.out.println("Error en la introduccion del mes: " + ex.getMessage()+"\n");
@@ -163,7 +165,7 @@ public class LoginViews {
 		
 		while(bEC) {
 		    try {
-		    iTelefono = (int) ValidaLibrary.valida("Introduzca su numero de telefono: ", 100000000, 999999999, 1);
+		    iTelefono = (int) ValidaLibrary.valida("Introduzca su numero de telefono: ", LIMIMINTELEFONO, LIMIMAXTELEFONO, LIMITEONE);
 		    bEC = false;
 		    } catch(Exception ex) {
 			System.out.println("Error en la introduccion del telefono: " + ex.getMessage()+"\n");
@@ -200,11 +202,11 @@ public class LoginViews {
 		
 		while(bEC) {
 		    try {
-		    bDato = (byte) ValidaLibrary.valida("¿Que tipo de ususario sera? 1= EMPRESARIO o 2= PARTICULAR : ",1,2,3);
+		    bDato = (byte) ValidaLibrary.valida("¿Que tipo de ususario sera? 1= EMPRESARIO o 2= PARTICULAR : ",LIMITEONE,LIMITWO,LIMITHRE);
 		    
-		    if(bDato ==1) {
+		    if(bDato ==LIMITEONE) {
 		    	sTipoUsuario ="EMPRESARIO";
-		    }else if(bDato ==2) {
+		    }else if(bDato ==LIMITWO) {
 		    	sTipoUsuario ="PARTICULAR";
 		    }else {
 		    	System.out.println("ERROR VALIDA TIPO USUARIO");

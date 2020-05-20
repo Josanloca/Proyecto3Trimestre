@@ -9,19 +9,22 @@ import java.util.List;
 import Controllador.ConexionBaseDatos;
 import modelo.tipo_estados.TipoUsuarioValorado;
 
-public class TipoUsuarioValoradoController {
+public class TipoUsuarioValoradoController implements iTipoUsuarioValoradoController{
 
+	@Override
 	public int add(TipoUsuarioValorado oTUV) {
 		String sql = "INSERT INTO tipo_de_usuario_valorado VALUES (\""+oTUV.getTipoUsuarioValorado()+"\")";
 		return ConexionBaseDatos.executeUpdate(sql);
 	}
 	
+	@Override
 	public int remove(TipoUsuarioValorado oTUV) {
 		String sql = "DELETE FROM tipo_de_usuario_valorado WHERE nombre_tipo_usuario_valorado LIKE \""+oTUV.getTipoUsuarioValorado()+"\"";
 		System.out.println(sql);
 		return ConexionBaseDatos.executeUpdate(sql);
 	}
 	
+	@Override
     public List<TipoUsuarioValorado> ListaTUVTodos () {
 		
 	List<TipoUsuarioValorado> lTipoUsuarioValorado = new ArrayList<TipoUsuarioValorado>();	
@@ -45,6 +48,7 @@ public class TipoUsuarioValoradoController {
 	return lTipoUsuarioValorado;	
     }
     
+	@Override
     public List<TipoUsuarioValorado> ListaTUV (TipoUsuarioValorado oTUV) {
 		
 	List<TipoUsuarioValorado> lTipoUsuarioValorado = new ArrayList<TipoUsuarioValorado>();	

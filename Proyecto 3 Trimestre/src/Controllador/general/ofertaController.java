@@ -66,6 +66,7 @@ public class ofertaController implements iOfertaController{
 	return lOferta;	
     }
     
+    @Override
     public List<oferta> ListaOfertaXDNI (usuario oUsuario) {
 		
 	List<oferta> lOferta = new ArrayList<oferta>();	
@@ -101,6 +102,7 @@ public class ofertaController implements iOfertaController{
 	return lOferta;	
     }
     
+    @Override
 	public oferta inicioPeticionConOferta() {
 		oferta oOferta = null,oObjeto2=null;
 		String sql = "SELECT * FROM oferta WHERE id_Oferta LIKE 10";
@@ -134,6 +136,7 @@ public class ofertaController implements iOfertaController{
 		return oOferta;
 	}
 
+    @Override
 	public byte ContadorOferta() {
 		byte bResultado=0;
 		Statement stm = null;
@@ -152,7 +155,7 @@ public class ofertaController implements iOfertaController{
 		return bResultado;
 	}
 
-
+    @Override
     public List<oferta> ListaV1 (usuario oUsuario1,PaqueteController Controllado) {
 		
 	List<oferta> lOferta = new ArrayList<oferta>();	
@@ -190,6 +193,7 @@ public class ofertaController implements iOfertaController{
 	return lOferta;	
     }
 
+    @Override
     public int ActualizarOfertasAceptado (int iDato1,int iDato2) {
     	String sql = "UPDATE oferta ";
     	sql +="SET nombre_tipo_oferta =\"PROCESANDO\"";
@@ -198,6 +202,7 @@ public class ofertaController implements iOfertaController{
     	return ConexionBaseDatos.executeUpdate(sql);
     }
     
+    @Override
     public int ActualizarOfertasDenegadas (int iDato1) {
     	String sql = "UPDATE oferta ";
     	sql +="SET nombre_tipo_oferta = \"DENEGADO\"";
@@ -205,7 +210,7 @@ public class ofertaController implements iOfertaController{
     	return ConexionBaseDatos.executeUpdate(sql);
     }
     
-    
+    @Override
     public List<oferta> ListaOfertaXdniFinalizarPeticion (usuario oUsuario) {
 		
     	List<oferta> lOferta = new ArrayList<oferta>();	
@@ -242,6 +247,7 @@ public class ofertaController implements iOfertaController{
     	return lOferta;	
         }
     
+    @Override
     public oferta ObjetoDevueltoOferta (oferta oOferta) {
     	oferta oRespuesta= null;
     	String sql = "SELECT * FROM oferta WHERE id_Peticion=" + oOferta.getId_Oferta();
@@ -271,6 +277,7 @@ public class ofertaController implements iOfertaController{
     	return oRespuesta;	
         }
     
+    @Override
     public int ActualizarOfertaFinalizacion (int iDato1) {    	
     	String sql = "UPDATE oferta ";
     	sql +="SET nombre_tipo_oferta = \"FINALIZADO\"";

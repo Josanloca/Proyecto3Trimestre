@@ -1,5 +1,6 @@
 package views;
 
+import java.util.List;
 import Controllador.general.PaqueteController;
 import Limites.iLimitesGenerales;
 import Valida.ValidaLibrary;
@@ -14,10 +15,8 @@ public class OfertaViews implements iLimitesGenerales{
 		oferta oOferta = null;	
 		usuario oUsuarioOferta = null;
 		boolean bEC = true,bExito =false;
-		
 		int id_Oferta=0,PrecioOferta=0;
 		String DescOferta = null,sEO=null;
-		
 		
 		System.out.println("Para crear su oferta por favor rellene los siguientes campos: ");
 		
@@ -47,7 +46,7 @@ public class OfertaViews implements iLimitesGenerales{
 		
 		while(bEC) {
 		    try {
-		    PrecioOferta = (int) ValidaLibrary.valida("Introduzca su oferta(dinero): ", 1, LIMITEPRECMAX, 1);
+		    PrecioOferta = (int) ValidaLibrary.valida("Introduzca su oferta(dinero): ", LIMITEONE, LIMITEPRECMAX, LIMITEONE);
 		    bEC = false;
 		    } catch(Exception ex) {
 			System.out.println("Error en introduccion: " + ex.getMessage()+"\n");
@@ -80,17 +79,14 @@ public class OfertaViews implements iLimitesGenerales{
 		}
 		
 		EstadoOferta oEO = new EstadoOferta(sEO);
-		
-		
 		oOferta = new oferta(id_Oferta,DescOferta,PrecioOferta,oUsuarioOferta,oEO,oPeticion);
 		
-		if(Controllador.getofertaController().add(oOferta)>0) {
+		if(Controllador.getofertaController().add(oOferta)>LIMITEZEROVIEWS) {
 			System.out.println("Introduccion correctar");
 			bExito =true;
 		}else {
 			System.out.println("Introduccion Erronea");
 		}
-		
 		return bExito;
 	}
 
@@ -128,15 +124,16 @@ public class OfertaViews implements iLimitesGenerales{
 	}
 	
 	public static void BorrarOferta(PaqueteController Controllador,usuario oUsuario) {
+		List<oferta> lOferta = Controllador.getofertaController().ListaOfertaXDNI(oUsuario);	
 		boolean bEC = true;
 		oferta oOferta = null;
 		int iDato =0;
 		System.out.println("Escriba el id de la peticion que quiere borrar \n");
-		System.out.println(Controllador.getofertaController().ListaOfertaXDNI(oUsuario));
+		System.out.println(lOferta);
 
 		while(bEC) {
 		    try {
-		    iDato = (int) ValidaLibrary.valida("Introduce el id de la oferta que quieres borrar", 1, 10, 1);
+		    iDato = (int) ValidaLibrary.valida("Introduce el id de la oferta que quieres borrar", lOferta.get(0).getId_Oferta(), lOferta.get(lOferta.size()-LIMITEONE).getId_Oferta(),LIMITEONE);
 		    bEC = false;
 		    } catch(Exception ex) {
 			System.out.println("Error en la introduccion: " + ex.getMessage()+"\n");
@@ -145,14 +142,11 @@ public class OfertaViews implements iLimitesGenerales{
 		}
 		oOferta = new oferta(iDato);
 		
-		if(Controllador.getofertaController().remove(oOferta) >0) {
+		if(Controllador.getofertaController().remove(oOferta) >LIMITEZEROVIEWS) {
 			System.out.println("Borrado realizado");
 		}else {
 			System.out.println("Borrado no realizado");
 		}
-		
 	}
-	
-	
 	
 }

@@ -46,7 +46,16 @@ public interface iLimitesGenerales {
 	//LoginViews
 	public byte LIMITEZEROVISTA = 0;
 
-	
-	
+	//GENERICOS
+	public byte LIMITEZEROVIEWS = 0;
+	public byte LIMITELESSONE = -1;
+	public byte LIMITEONE = 1;
+	public byte LIMITWO = 2;
+	public byte LIMITHRE = 3;
+	public byte LIMITEN = 10;
+	public byte LIMIMAXMES = 12;
+	public byte LIMIMAXDIA = 31;
+	public int LIMIMINTELEFONO = 100000000;
+	public int LIMIMAXTELEFONO = 999999999;
 
 }

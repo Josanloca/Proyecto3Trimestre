@@ -31,6 +31,7 @@ public class peticionController implements iPeticionController{
 		return ConexionBaseDatos.executeUpdate(sql);
 	}
 	
+	@Override
     public int existePeticio (Peticion oPeticion) {
     	String sql = "SELECT COUNT(*) FROM peticion WHERE id_peticion LIKE \""+oPeticion.getiIdPeticion()+"\"";
     	//System.out.println(sql);
@@ -72,6 +73,7 @@ public class peticionController implements iPeticionController{
 	return lPeticion;	
     }
 	
+	@Override
 	public List<Peticion> ListaPeticionNoFinalizadas(usuario oUsuario) {
 		
 		List<Peticion> lPeticion = new ArrayList<Peticion>();	
@@ -105,6 +107,7 @@ public class peticionController implements iPeticionController{
 		return lPeticion;	
 	    }
    
+	@Override
 	public byte ContadorPeticion() {
 		byte bResultado=0;
 		Statement stm = null;
@@ -123,6 +126,7 @@ public class peticionController implements iPeticionController{
 		return bResultado;
 	}
 	
+	@Override
     public List<Peticion> ListaPeticionXDNI(usuario oUsuario) {
 		
 	List<Peticion> lPeticion = new ArrayList<Peticion>();	
@@ -142,7 +146,6 @@ public class peticionController implements iPeticionController{
 		String sUsuario = rs.getString(4);
 		byte bidOferta = (byte)rs.getInt(5);
 		String sEP = rs.getString(6);
-		System.out.println(sEP);
 
 		usuario oUser = new usuario(sUsuario);
 		EstadoPeticion oEP = new EstadoPeticion(sEP);
@@ -158,11 +161,11 @@ public class peticionController implements iPeticionController{
 	return lPeticion;	
     }
     
+	@Override
     public List<Peticion> ListaPeticionXDNIXValoracion(usuario oUsuario) {
 		
     	List<Peticion> lPeticion = new ArrayList<Peticion>();	
     	String sql = "SELECT * FROM peticion WHERE usuario_Peticion LIKE \""+oUsuario.getsDni_nif()+"\" AND nombre_estado_Peticion LIKE \"FINALIZADO\"";
-    	System.out.println(sql);
     	Statement stm = null;
     	
     	try {
@@ -194,6 +197,7 @@ public class peticionController implements iPeticionController{
     	return lPeticion;	
         }
 	
+	@Override
     public List<Peticion> ListaPeticionSinContarte(usuario oUsuario) {
 		
     	List<Peticion> lPeticion = new ArrayList<Peticion>();	
@@ -226,7 +230,7 @@ public class peticionController implements iPeticionController{
     	return lPeticion;	
         }
     
-    
+	@Override
     public int ActualizarPeticionAñadiendoOferta (int iDato1, int iDato2) {
     	String sql = "UPDATE peticion ";
     	sql +="SET nombre_estado_Peticion =\"PROCESANDO\",id_oferta="+iDato2;
@@ -235,7 +239,7 @@ public class peticionController implements iPeticionController{
     	return ConexionBaseDatos.executeUpdate(sql);
     }
     
-    
+	@Override
     public int ActualizarPeticionFinalizada (int iDato1) {
     	    	
     	String sql = "UPDATE Peticion ";

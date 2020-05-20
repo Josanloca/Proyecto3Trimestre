@@ -59,14 +59,16 @@ public class usuarioController implements iUsuarioController{
 		return LTU;
 	}
 	
+	@Override
     public int checkUsuarioLogin (usuario oUsuario) {
-    	String sql = "SELECT COUNT(*) FROM usuario WHERE correo_Electronico LIKE \"" + oUsuario.getsCorreoElectronico() + "\" AND contraseña LIKE \""+oUsuario.getsContraseña()+"\"";
+    	String sql = "SELECT COUNT(*) FROM usuario WHERE correo_Electronico = \"" + oUsuario.getsCorreoElectronico() + "\" AND contraseña = \""+oUsuario.getsContraseña()+"\"";
   
     	return ConexionBaseDatos.executeCount(sql);
     }
     
     //GeneradorDeUsuarioCompletoAlEntrar
     
+	@Override
 	public usuario GDUCAE(usuario oUsuario) {
 		usuario oObjeto=null;
 		String sql = "SELECT * FROM usuario WHERE Correo_Electronico LIKE \"" + oUsuario.getsCorreoElectronico() + "\"";
@@ -97,8 +99,6 @@ public class usuarioController implements iUsuarioController{
 			System.out.println(Nex.getMessage()+"\n");	
 			oObjeto = null;
 		}
-		
-		
 		return oObjeto;
 	}
 }
