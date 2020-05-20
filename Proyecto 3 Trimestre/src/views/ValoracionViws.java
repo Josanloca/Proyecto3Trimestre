@@ -271,7 +271,6 @@ public class ValoracionViws implements iLimitesGenerales{
 		boolean bEC = true;
 		int iIdOferta =0;
 		
-		
 		if(lPeticion != null) {
 			System.out.println("Digame que Peticion terminada quiere ver las valoraciones: ");
 		 System.out.println(lPeticion);
