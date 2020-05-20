@@ -153,5 +153,128 @@ public class ofertaController implements iOfertaController{
 	}
 
 
+    public List<oferta> ListaV1 (usuario oUsuario1,PaqueteController Controllado) {
+		
+	List<oferta> lOferta = new ArrayList<oferta>();	
+	
+	List<Peticion> lListaExterna = Controllado.getpeticionController().ListaPeticionXDNI(oUsuario1);
+	
+    for (int i = 0; i < lListaExterna.size(); i++) {
+        
+	
+	String sql = "SELECT * FROM oferta WHERE id_Peticion =" + lListaExterna.get(i).getiIdPeticion()+" AND nombre_tipo_oferta = \"ESPERA\"";
+	System.out.println(sql);
+	Statement stm = null;
+	
+	try {
+	    stm = ConexionBaseDatos.getConnection().createStatement();
+	    ResultSet rs = stm.executeQuery(sql);
+	    while (rs.next()) {
+	    byte bId_Oferta = (byte)rs.getInt(1);
+		String sDescOferta = rs.getString(2);
+		int bPrecio = (int)rs.getInt(3);
+		String sUsuario = rs.getString(4);
+		String sEO = rs.getString(5);
+		byte bId_Peticion = (byte)rs.getInt(6);
+		usuario oUsuario = new usuario(sUsuario);	
+		EstadoOferta oEO = new EstadoOferta(sEO);
+		Peticion oPeticion = new Peticion(bId_Peticion);
+		
+		lOferta.add(new oferta(bId_Oferta,sDescOferta,bPrecio,oUsuario,oEO,oPeticion));
+	    }
+	    stm.close();
+	} catch (SQLException e) {
+		lOferta = null;
+	}
+    }
+	return lOferta;	
+    }
 
+    public int ActualizarOfertasAceptado (int iDato1,int iDato2) {
+    	String sql = "UPDATE oferta ";
+    	sql +="SET nombre_tipo_oferta =\"PROCESANDO\"";
+    	sql	+=	" WHERE id_peticion = "+iDato1+" AND id_oferta ="+iDato2;
+    	System.out.println(sql);
+    	return ConexionBaseDatos.executeUpdate(sql);
+    }
+    
+    public int ActualizarOfertasDenegadas (int iDato1) {
+    	String sql = "UPDATE oferta ";
+    	sql +="SET nombre_tipo_oferta = \"DENEGADO\"";
+    	sql	+=	" WHERE id_peticion = "+iDato1;
+    	return ConexionBaseDatos.executeUpdate(sql);
+    }
+    
+    
+    public List<oferta> ListaOfertaXdniFinalizarPeticion (usuario oUsuario) {
+		
+    	List<oferta> lOferta = new ArrayList<oferta>();	
+    	String sql = "SELECT * FROM oferta WHERE usuario_oferta=\"" + oUsuario.getsDni_nif()+"\" AND nombre_tipo_oferta =\"PROCESANDO\"";
+    	System.out.println(sql);
+    	String sqlComprobador = "SELECT COUNT(*) FROM oferta WHERE usuario_oferta LIKE \"" +oUsuario.getsDni_nif()+"\" AND nombre_tipo_oferta =\"PROCESANDO\"";
+    	
+    	if(ConexionBaseDatos.executeCount(sqlComprobador)>0) {
+    	Statement stm = null;
+    	
+    	try {
+    	    stm = ConexionBaseDatos.getConnection().createStatement();
+    	    ResultSet rs = stm.executeQuery(sql);
+    	    while (rs.next()) {
+    	    byte bId_Oferta = (byte)rs.getInt(1);
+    		String sDescOferta = rs.getString(2);
+    		int bPrecio = (int)rs.getInt(3);
+    		String sUsuario = rs.getString(4);
+    		String sEO = rs.getString(5);
+    		byte bId_Peticion = (byte)rs.getInt(6);
+    		usuario oUsuario2 = new usuario(sUsuario);	
+    		EstadoOferta oEO = new EstadoOferta(sEO);
+    		Peticion oPeticion = new Peticion(bId_Peticion);
+    		
+    		lOferta.add(new oferta(bId_Oferta,sDescOferta,bPrecio,oUsuario2,oEO,oPeticion));
+    	    }
+    	    stm.close();
+    	} catch (SQLException e) {
+    		lOferta = null;
+    	}
+    	}else {
+    		System.out.println("ERROR. No existe ninguna oferta con ese dni");
+    	}
+    	return lOferta;	
+        }
+    
+    public oferta ObjetoDevueltoOferta (oferta oOferta) {
+    	oferta oRespuesta= null;
+    	String sql = "SELECT * FROM oferta WHERE id_Peticion=" + oOferta.getId_Oferta();
+
+    	Statement stm = null;
+    	
+    	try {
+    	    stm = ConexionBaseDatos.getConnection().createStatement();
+    	    ResultSet rs = stm.executeQuery(sql);
+    	    while (rs.next()) {
+    	    byte bId_Oferta = (byte)rs.getInt(1);
+    		String sDescOferta = rs.getString(2);
+    		int bPrecio = (int)rs.getInt(3);
+    		String sUsuario = rs.getString(4);
+    		String sEO = rs.getString(5);
+    		byte bId_Peticion = (byte)rs.getInt(6);
+    		usuario oUsuario = new usuario(sUsuario);	
+    		EstadoOferta oEO = new EstadoOferta(sEO);
+    		Peticion oPeticion = new Peticion(bId_Peticion);    		
+    		oRespuesta=new oferta(bId_Oferta,sDescOferta,bPrecio,oUsuario,oEO,oPeticion);
+    	    }
+    	    stm.close();
+    	} catch (SQLException e) {
+    		oRespuesta = null;
+    	}
+
+    	return oRespuesta;	
+        }
+    
+    public int ActualizarOfertaFinalizacion (int iDato1) {    	
+    	String sql = "UPDATE oferta ";
+    	sql +="SET nombre_tipo_oferta = \"FINALIZADO\"";
+    	sql	+=	" WHERE id_oferta = "+iDato1;
+    	return ConexionBaseDatos.executeUpdate(sql);
+    }
 }

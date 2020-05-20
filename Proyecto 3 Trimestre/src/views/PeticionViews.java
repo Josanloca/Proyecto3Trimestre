@@ -2,6 +2,8 @@ package views;
 
 
 
+import java.util.List;
+
 import Controllador.general.PaqueteController;
 import Valida.ValidaLibrary;
 import modelo.Peticion;
@@ -95,19 +97,18 @@ public class PeticionViews {
 		System.out.println("Aqui tiene una lista de sus peticiones \n");
 		System.out.println(Controllador.getpeticionController().ListaPeticionXDNI(oUsuario));
 	}
-	
-	
-	
+		
 	public static void BorrarPeticion(PaqueteController Controllador,usuario oUsuario) {
+		List<Peticion> lValoracion =Controllador.getpeticionController().ListaPeticionXDNI(oUsuario);
 		boolean bEC = true;
 		Peticion oPeticion = null;
 		int iDato =0;
 		System.out.println("Escriba el id de la peticion que quiere borrar \n");
-		System.out.println(Controllador.getpeticionController().ListaPeticionXDNI(oUsuario));
+		System.out.println(lValoracion);
 
 		while(bEC) {
 		    try {
-		    iDato = (int) ValidaLibrary.valida("Introduce el id del que quieres borrar", 1, Controllador.getpeticionController().ListaPeticionXDNI(oUsuario).size(), 1);
+		    iDato = (int) ValidaLibrary.valida("Introduce el id del que quieres borrar",lValoracion.get(0).getiIdPeticion(),lValoracion.get(lValoracion.size()-1).getiIdPeticion(), 1);
 		    bEC = false;
 		    } catch(Exception ex) {
 			System.out.println("Error en la introduccion: " + ex.getMessage()+"\n");
@@ -124,26 +125,29 @@ public class PeticionViews {
 		
 	}
 	
-	public static void seleccionarPeticionDefinitiva(PaqueteController Controllador,usuario oUsuario) {
+	public static void seleccionarOfertaDefinitiva(PaqueteController Controllador,usuario oUsuario) {
 		boolean bEC = true;
-		Peticion oPeticion = null;
-		int iDato =0;
+		List<oferta> lListaExterna = Controllador.getofertaController().ListaV1(oUsuario, Controllador);
+		int iDato1 =0,iDato2 =0;
 		System.out.println("******************************* \n");
-		System.out.println(Controllador.getpeticionController().ListaPeticionSinContarte(oUsuario));
+		System.out.println(lListaExterna);
+
 
 		while(bEC) {
 		    try {
-		    iDato = (int) ValidaLibrary.valida("Dime el id de la peticion a la que quieres realizar una oferta: ", 1, Controllador.getpeticionController().ListaPeticionSinContarte(oUsuario).size(), 1);
+			iDato1 = (int) ValidaLibrary.valida("Dime el id de la peticion: ",lListaExterna.get(0).getoPeticion().getiIdPeticion(),lListaExterna.get(lListaExterna.size()-1).getoPeticion().getiIdPeticion(), 1);
+		    iDato2 = (int) ValidaLibrary.valida("Dime el id de la oferta que le ha convencido para contratar: ", lListaExterna.get(0).getId_Oferta(),lListaExterna.get(lListaExterna.size()-1).getId_Oferta(), 1);
 		    bEC = false;
 		    } catch(Exception ex) {
 			System.out.println("Error en la introduccion: " + ex.getMessage()+"\n");
 			System.out.println("Intentelo de nuevo \n");
 		    }
 		}
-		oPeticion = new Peticion(iDato);
 		
-		if(Controllador.getpeticionController().ActualizarPeticionAñadiendoOferta(oPeticion) >0) {
+		if(Controllador.getpeticionController().ActualizarPeticionAñadiendoOferta(iDato1,iDato2) >0) {
+			System.out.println(Controllador.getofertaController().ActualizarOfertasAceptado(iDato1, iDato2));
 			System.out.println("actualizacion realizada");
+			Controllador.getofertaController().ActualizarOfertasDenegadas(iDato1);
 		}else {
 			System.out.println("actualizacion no realizado");
 		}
@@ -188,6 +192,7 @@ public class PeticionViews {
 		    }else {
 		    	System.out.println("ERROR VALIDA TIPO USUARIO");
 		    }
+		    
 		    bEC = false;
 		    } catch(Exception ex) {
 			System.out.println("Error en la introduccion del tipo de usuario: " + ex.getMessage()+"\n");
@@ -196,4 +201,32 @@ public class PeticionViews {
 		}	
 	}
 
+	
+	public static void FinalizarPeticion(PaqueteController Controllador,usuario oUsuario) {
+		List<Peticion> lValoracion =Controllador.getpeticionController().ListaPeticionXDNI(oUsuario);
+		boolean bEC = true;
+		Peticion oPeticion = null;
+		int iDato =0;
+		System.out.println("Escriba el id de la peticion que quiere borrar \n");
+		System.out.println(lValoracion);
+
+		while(bEC) {
+		    try {
+		    iDato = (int) ValidaLibrary.valida("Introduce el id del que quieres borrar",lValoracion.get(0).getiIdPeticion(),lValoracion.get(lValoracion.size()-1).getiIdPeticion(), 1);
+		    bEC = false;
+		    } catch(Exception ex) {
+			System.out.println("Error en la introduccion: " + ex.getMessage()+"\n");
+			System.out.println("Intentelo de nuevo \n");
+		    }
+		}
+		oPeticion = new Peticion(iDato);
+		
+		if(Controllador.getpeticionController().remove(oPeticion) >0) {
+			System.out.println("Borrado realizado");
+		}else {
+			System.out.println("Borrado no realizado");
+		}
+		
+	}
+	
 }

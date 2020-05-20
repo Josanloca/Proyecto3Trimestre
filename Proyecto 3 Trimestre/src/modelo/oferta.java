@@ -151,7 +151,7 @@ public class oferta implements iLimitesGenerales,iOferta{
     	if(this.oEstadoOferta!= null) {
         	sResultado += "Estado de la oferta: "+this.oEstadoOferta.getsEstadoOferta()+"\n";
     	}
-    	sResultado += "Estado de la oferta: "+this.oPeticion.getiIdPeticion()+"\n";
+    	sResultado += "Id de la peticion dirigida: "+this.oPeticion.getiIdPeticion()+"\n";
     	return sResultado;
     	
     }

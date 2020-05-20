@@ -29,7 +29,7 @@ public interface iLimitesGenerales {
 
 	//Peticion
 	public final byte LIMITEPETIZERO=0;
-	public final byte LIMITEPETIMAX=9;
+	public final byte LIMITEPETIMAX=10;
 	public final int LIMITDESCMAX = 500;
 	public final int LIMITEPREMAX=9999;
 	

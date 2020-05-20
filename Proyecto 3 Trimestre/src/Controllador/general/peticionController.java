@@ -142,12 +142,14 @@ public class peticionController implements iPeticionController{
 		String sUsuario = rs.getString(4);
 		byte bidOferta = (byte)rs.getInt(5);
 		String sEP = rs.getString(6);
-		
+		System.out.println(sEP);
+
 		usuario oUser = new usuario(sUsuario);
 		EstadoPeticion oEP = new EstadoPeticion(sEP);
 		oferta oOferta = new oferta(bidOferta);
 
 		lPeticion.add(new Peticion(bId_Peticion,sDescPeticion,bPrecio,oUser,oEP,oOferta));
+		
 	    }
 	    stm.close();
 	} catch (SQLException e) {
@@ -155,11 +157,12 @@ public class peticionController implements iPeticionController{
 	}	
 	return lPeticion;	
     }
-	
-    public List<Peticion> ListaPeticionSinContarte(usuario oUsuario) {
+    
+    public List<Peticion> ListaPeticionXDNIXValoracion(usuario oUsuario) {
 		
     	List<Peticion> lPeticion = new ArrayList<Peticion>();	
-    	String sql = "SELECT * FROM peticion WHERE usuario_Peticion NOT LIKE \""+oUsuario.getsDni_nif()+"\" AND";
+    	String sql = "SELECT * FROM peticion WHERE usuario_Peticion LIKE \""+oUsuario.getsDni_nif()+"\" AND nombre_estado_Peticion LIKE \"FINALIZADO\"";
+    	System.out.println(sql);
     	Statement stm = null;
     	
     	try {
@@ -169,6 +172,40 @@ public class peticionController implements iPeticionController{
     	    
     	    while (rs.next()) {
     	    	
+    	    byte bId_Peticion = (byte) rs.getInt(1);
+    		String sDescPeticion = rs.getString(2);
+    		int bPrecio = (int) rs.getInt(3);
+    		String sUsuario = rs.getString(4);
+    		byte bidOferta = (byte)rs.getInt(5);
+    		String sEP = rs.getString(6);
+    		System.out.println(sEP);
+
+    		usuario oUser = new usuario(sUsuario);
+    		EstadoPeticion oEP = new EstadoPeticion(sEP);
+    		oferta oOferta = new oferta(bidOferta);
+
+    		lPeticion.add(new Peticion(bId_Peticion,sDescPeticion,bPrecio,oUser,oEP,oOferta));
+    		
+    	    }
+    	    stm.close();
+    	} catch (SQLException e) {
+    		lPeticion = null;
+    	}	
+    	return lPeticion;	
+        }
+	
+    public List<Peticion> ListaPeticionSinContarte(usuario oUsuario) {
+		
+    	List<Peticion> lPeticion = new ArrayList<Peticion>();	
+    	String sql = "SELECT * FROM peticion WHERE usuario_Peticion NOT LIKE \""+oUsuario.getsDni_nif()+"\"";
+    	Statement stm = null;
+    	
+    	try {
+    	    stm = ConexionBaseDatos.getConnection().createStatement();
+    	    
+    	    ResultSet rs = stm.executeQuery(sql);
+    	    
+    	    while (rs.next()) {
     	    byte bId_Peticion = (byte) rs.getInt(1);
     		String sDescPeticion = rs.getString(2);
     		int bPrecio = (int) rs.getInt(3);
@@ -189,15 +226,22 @@ public class peticionController implements iPeticionController{
     	return lPeticion;	
         }
     
-
     
-    public int ActualizarPeticionAñadiendoOferta (Peticion oPeticion) {
+    public int ActualizarPeticionAñadiendoOferta (int iDato1, int iDato2) {
     	String sql = "UPDATE peticion ";
-    	sql +="SET nombre_estado_Peticion = \"PROCESANDO\"";
-    	sql	+=	"WHERE id_peticion = "+oPeticion.getiIdPeticion();
+    	sql +="SET nombre_estado_Peticion =\"PROCESANDO\",id_oferta="+iDato2;
+    	sql	+=	" WHERE id_peticion = "+iDato1;
+    	System.out.println(sql);
     	return ConexionBaseDatos.executeUpdate(sql);
     }
     
     
-    
+    public int ActualizarPeticionFinalizada (int iDato1) {
+    	    	
+    	String sql = "UPDATE Peticion ";
+    	sql +="SET nombre_estado_Peticion = \"FINALIZADO\"";
+    	sql	+=	" WHERE id_oferta = "+iDato1;
+    	
+    	return ConexionBaseDatos.executeUpdate(sql);
+    }
 }

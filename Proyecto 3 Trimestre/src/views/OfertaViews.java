@@ -94,6 +94,7 @@ public class OfertaViews implements iLimitesGenerales{
 		return bExito;
 	}
 
+	/*
 	public static void seleccionarPeticion(PaqueteController Controllador,usuario oUsuario) {
 		boolean bEC = true;
 		Peticion oPeticion = null;
@@ -119,7 +120,7 @@ public class OfertaViews implements iLimitesGenerales{
 		}
 		
 	}
-
+*/
 	
 	public static void MostrarPeticionesPropias(PaqueteController Controllador,usuario oUsuario) {
 		System.out.println("Aqui tiene una lista de sus peticiones \n");
@@ -151,4 +152,7 @@ public class OfertaViews implements iLimitesGenerales{
 		}
 		
 	}
+	
+	
+	
 }

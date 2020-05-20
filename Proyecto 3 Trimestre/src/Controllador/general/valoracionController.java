@@ -86,4 +86,23 @@ public class valoracionController {
 	return lvaloraciones;	
     }
 	
+	public byte ContadorValoracion() {
+		byte bResultado=0;
+		Statement stm = null;
+
+		String sql = "SELECT MAX(id_valoracion) FROM valoracion WHERE id_valoracion ";
+		try {
+		    stm = ConexionBaseDatos.getConnection().createStatement();
+		    ResultSet rs = stm.executeQuery(sql);
+		    while (rs.next()) {
+		    bResultado = (byte)rs.getInt(1);
+		    }
+		    stm.close();
+		} catch (SQLException e) {
+			bResultado = 0;
+		}		
+		return bResultado;
+	}
+	
+	
 }
